@@ -1,0 +1,11 @@
+body {
+  transition: padding-left 300ms ease 0s;
+
+  &.hidden {
+    overflow: hidden;
+  }
+
+  &.active {
+    padding-left: 240px;
+  }
+}

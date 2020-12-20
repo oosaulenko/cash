@@ -134,7 +134,7 @@ $enable-important-utilities:  true;
 // variables. Mostly focused on spacing.
 // You can add more entries to the $spacers map, should you need more variation.
 
-//$spacer: 1rem;
+$spacer: 1rem;
 //$spacers: (
 //        0: 0,
 //        1: $spacer / 4,
@@ -294,9 +294,9 @@ $font-family-sans-serif:      'Roboto', system-ui, -apple-system, "Segoe UI", Ro
 
 // $font-size-root effects the value of `rem`, which is used for as well font sizes, paddings and margins
 // $font-size-base effects the font size of the body text
-//$font-size-root:              null;
+$font-size-root:              null;
 $font-size-base:              1rem; // Assumes the browser default, typically `16px`
-//$font-size-sm:                $font-size-base * .875;
+$font-size-sm:                $font-size-base * .875;
 //$font-size-lg:                $font-size-base * 1.25;
 
 //$font-weight-lighter:         lighter;
@@ -447,10 +447,10 @@ $h6-font-size:                $font-size-base;
 //$input-btn-padding-y:         .375rem;
 //$input-btn-padding-x:         .75rem;
 //$input-btn-font-family:       null;
-//$input-btn-font-size:         $font-size-base;
+$input-btn-font-size:         $font-size-sm;
 //$input-btn-line-height:       $line-height-base;
 //
-//$input-btn-focus-width:         .25rem;
+$input-btn-focus-width:         0;
 //$input-btn-focus-color-opacity: .25;
 //$input-btn-focus-color:         rgba($component-active-bg, $input-btn-focus-color-opacity);
 //$input-btn-focus-box-shadow:    0 0 0 $input-btn-focus-width $input-btn-focus-color;
@@ -461,7 +461,7 @@ $h6-font-size:                $font-size-base;
 //
 //$input-btn-padding-y-lg:      .5rem;
 //$input-btn-padding-x-lg:      1rem;
-//$input-btn-font-size-lg:      $font-size-lg;
+$input-btn-font-size-lg:      $font-size-sm;
 //
 //$input-btn-border-width:      $border-width;
 
@@ -481,8 +481,8 @@ $h6-font-size:                $font-size-base;
 //$btn-padding-x-sm:            $input-btn-padding-x-sm;
 //$btn-font-size-sm:            $input-btn-font-size-sm;
 //
-//$btn-padding-y-lg:            $input-btn-padding-y-lg;
-//$btn-padding-x-lg:            $input-btn-padding-x-lg;
+$btn-padding-y-lg:            0.75rem;
+$btn-padding-x-lg:            2.375rem;
 //$btn-font-size-lg:            $input-btn-font-size-lg;
 //
 //$btn-border-width:            $input-btn-border-width;
@@ -514,10 +514,10 @@ $h6-font-size:                $font-size-base;
 //$form-text-font-weight:                 null;
 //$form-text-color:                       $text-muted;
 //
-//$form-label-margin-bottom:              .5rem;
-//$form-label-font-size:                  null;
+$form-label-margin-bottom:              0.75rem;
+$form-label-font-size:                  $font-size-sm;
 //$form-label-font-style:                 null;
-//$form-label-font-weight:                null;
+$form-label-font-weight:                300;
 //$form-label-color:                      null;
 //
 //$input-padding-y:                       $input-btn-padding-y;
@@ -531,8 +531,8 @@ $h6-font-size:                $font-size-base;
 //$input-padding-x-sm:                    $input-btn-padding-x-sm;
 //$input-font-size-sm:                    $input-btn-font-size-sm;
 //
-//$input-padding-y-lg:                    $input-btn-padding-y-lg;
-//$input-padding-x-lg:                    $input-btn-padding-x-lg;
+$input-padding-y-lg:                    0.875rem;
+$input-padding-x-lg:                    1rem;
 //$input-font-size-lg:                    $input-btn-font-size-lg;
 //
 //$input-bg:                              $white;
@@ -886,12 +886,12 @@ $h6-font-size:                $font-size-base;
 
 // Cards
 
-//$card-spacer-y:                     $spacer;
-//$card-spacer-x:                     $spacer;
+$card-spacer-y:                     $spacer * 1.5;
+$card-spacer-x:                     $spacer * 1.5;
 //$card-title-spacer-y:               $spacer / 2;
 //$card-border-width:                 $border-width;
 //$card-border-radius:                $border-radius;
-//$card-border-color:                 rgba($black, .125);
+$card-border-color:                 transparent;
 //$card-inner-border-radius:          subtract($card-border-radius, $card-border-width);
 //$card-cap-padding-y:                $card-spacer-y / 2;
 //$card-cap-padding-x:                $card-spacer-x;
