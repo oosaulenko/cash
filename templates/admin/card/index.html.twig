@@ -1,0 +1,13 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block body %}
+
+    <a href="{{ path('admin_card_create') }}" class="btn btn-primary">Добавить новую карту</a>
+
+    <ul>
+        {% for card in cards %}
+            <li>{{ card.name }} - {{ card.balance }}</li>
+        {% endfor %}
+    </ul>
+
+{% endblock %}

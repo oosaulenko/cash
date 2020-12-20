@@ -1,0 +1,47 @@
+html {
+  overflow-x: hidden;
+  overflow-y: overlay;
+
+  overflow: initial !important;
+}
+
+
+body {
+  background: #F8FAFB;
+  background-repeat: no-repeat;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  transition: padding-left 300ms ease 0s;
+
+  @media only screen and (min-width: 2000px) {
+    background: $light;
+  }
+
+  &.admin-bar {
+
+  }
+
+  &.hidden {
+    overflow: hidden;
+  }
+
+  &.active {
+    padding-left: 240px;
+  }
+}
+
+
+a {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.table {
+  tr.red {
+    td {
+      color: red;
+      font-weight: 700;
+    }
+  }
+}

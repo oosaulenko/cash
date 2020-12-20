@@ -1,0 +1,128 @@
+.widget {
+
+  &__title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.05px;
+    margin-bottom: 38px;
+
+    @include media-breakpoint-down(sm) {
+      margin-bottom: 16px;
+    }
+  }
+
+  &_nav_menu {
+
+    .menu {
+      padding-left: 0;
+      list-style: none;
+      color: $body-color;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 24px;
+
+      &-item {
+        a {
+          color: $body-color;
+
+          &:hover {
+            color: $primary;
+          }
+        }
+      }
+    }
+  }
+
+  &_phone {
+
+    .widget {
+
+      &__inner {
+        padding-left: 35px;
+        position: relative;
+      }
+
+      &__phone {
+        font-weight: 400;
+        color: $body-color;
+        font-size: 16px;
+        letter-spacing: 1.2px;
+        line-height: 1;
+
+        a {
+          color: inherit;
+
+          &:hover {
+            color: $primary;
+          }
+        }
+
+        .fas {
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 19px;
+          color: $primary;
+        }
+      }
+
+      &__time_work {
+        color: #a4a4a4;
+        font-size: 12px;
+        font-weight: 400;
+        letter-spacing: 0.9px;
+      }
+
+      &__messenger {
+        margin-top: 13px;
+
+        @include media-breakpoint-down(sm) {
+          margin-top: 6px;
+        }
+      }
+    }
+  }
+
+  &_address {
+    .widget {
+      &__inner {
+        padding-left: 35px;
+        position: relative;
+      }
+
+      &__address {
+        font-weight: 400;
+        color: $body-color;
+        font-size: 14px;
+        line-height: 22px;
+
+        i {
+          position: absolute;
+          top: 0;
+          left: 0;
+          font-size: 19px;
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &_question {
+    .widget {
+      &__desc {
+        margin-top: -20px;
+        color: #a4a4a4;
+        font-size: 14px;
+        line-height: 1;
+        letter-spacing: 1.05px;
+        margin-bottom: 26px;
+
+        @include media-breakpoint-down(sm) {
+          margin-top: 0;
+          margin-bottom: 18px;
+        }
+      }
+    }
+  }
+}

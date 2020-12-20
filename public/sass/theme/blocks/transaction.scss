@@ -1,0 +1,91 @@
+.transaction {
+  padding: size(3) size(4);
+
+  &__body {
+
+  }
+
+  &__category_icon {
+    margin-right: 12px;
+
+    .icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: inline-block;
+      text-align: center;
+      line-height: 40px;
+      font-size: 16px;
+      background-color: rgba($primary, .1);
+      color: $primary;
+    }
+  }
+
+  &__title {
+    font-size: 16px;
+    color: $dark;
+    letter-spacing: 0.2px;
+    margin-bottom: 6px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &__date {
+    color: $secondary-dark;
+  }
+
+  &__category {
+    color: $secondary-dark;
+  }
+
+  &__amount {
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+
+  &__title_category {
+    line-height: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  &__amount_date {
+    line-height: 1;
+    white-space: nowrap;
+    margin-right: 18px;
+  }
+
+  &__edit {
+    color: $gray-light;
+
+    .edit {
+      border: 0;
+      background-color: transparent;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      outline: none;
+
+      span {
+        width: 2px;
+        height: 2px;
+        background-color: $gray-light;
+        border-radius: 50%;
+        margin-right: 3px;
+        display: inline-block;
+
+        &:last-of-type {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background-color: rgba($primary, .05);
+  }
+
+}

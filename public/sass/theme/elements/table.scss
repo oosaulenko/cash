@@ -1,0 +1,39 @@
+.table-transactions {
+  font-size: 14px;
+
+  .old-cat, .new-cat {
+    font-size: 12px;
+  }
+
+  .old-cat {
+    color: $red;
+  }
+
+  .new-cat {
+    color: $green;
+  }
+
+  .mcc {
+    font-weight: 600;
+
+    &.red {
+      color: $red;
+    }
+
+    &.green {
+      color: $green;
+    }
+  }
+
+  tr.tr-red {
+    td {
+      background-color: rgba($red, .2);
+    }
+  }
+}
+
+
+.transactions-all {
+  display: flex;
+  flex-direction: column-reverse;
+}

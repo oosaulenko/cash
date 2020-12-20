@@ -1,0 +1,10 @@
+name: cash
+recipe: symfony
+config:
+  webroot: public
+  php: '7.4'
+  via: apache:2.4
+  database: mysql:5.7
+  xdebug: true
+  config:
+    server: config/server.conf

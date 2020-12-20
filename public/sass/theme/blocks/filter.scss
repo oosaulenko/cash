@@ -1,0 +1,60 @@
+.filters {
+  display: flex;
+  align-items: center;
+
+  .filter {
+    margin-left: size(4);
+  }
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+
+  i {
+    color: $gray-light;
+    margin-right: 6px;
+  }
+
+  &__name {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: $gray-light;
+    margin-right: 10px;
+  }
+
+  &__value {
+    input, select {
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      text-transform: uppercase;
+      color: $dark;
+      border: 0;
+      padding: 0;
+      outline: none;
+    }
+  }
+
+}
+
+.filter-date {
+
+  input {
+    //border: 0;
+  }
+
+}
+
+.filter_inline {
+
+}
+
+.filter_inline-tag {
+  .filter_inline__value {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}

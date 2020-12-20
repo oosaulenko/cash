@@ -1,0 +1,48 @@
+.page {
+  max-width: 2000px;
+  margin: auto;
+  background-color: #F8FAFB;
+
+  @media only screen and (min-width: 2000px) {
+    border-left: 1px solid $light-gray;
+    border-right: 1px solid $light-gray;
+  }
+
+  &-block {
+
+  }
+
+
+  &__breadcrumbs {
+    text-align: center;
+    margin-bottom: size(4);
+    font-size: 14px;
+    color: #333;
+    letter-spacing: 1px;
+  }
+
+  &__title {
+    color: #282828;
+    font-size: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2.25px;
+    text-align: center;
+    margin-bottom: size(7);
+    font-weight: 800;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 24px;
+      margin: 20px 0 10px;
+    }
+  }
+
+  &__form {
+    margin: size(7) 0;
+  }
+}
+
+body.woocommerce-order-received {
+  .page__title {
+    display: none;
+  }
+}

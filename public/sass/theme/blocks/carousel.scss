@@ -1,0 +1,276 @@
+.carousel, .carousel-card {
+  margin-bottom: size(6);
+  height: 100%;
+
+  &.slick-dotted.slick-slider {
+    margin-bottom: 0;
+  }
+
+  .slick {
+    &-list {
+      overflow: initial;
+      outline: none;
+
+      * {
+        outline: none;
+      }
+    }
+
+    &-track {
+      display: flex;
+    }
+
+    &-slide {
+      outline: none;
+    }
+
+    &-dots {
+      width: auto;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+
+      @include media-breakpoint-down(sm) {
+        display: none !important;
+      }
+
+      li {
+        width: auto;
+        height: auto;
+        margin: 0;
+
+        button {
+          width: 13px;
+          height: 13px;
+          margin: 0 16px 0 0;
+          background: #333;
+          opacity: .25;
+          position: relative;
+          transition: all 250ms ease-in-out 0s;
+          top: 0;
+          border-radius: 50%;
+          padding: 0;
+
+          &:before {
+            display: none;
+          }
+        }
+
+        &.slick-active {
+
+          button {
+            opacity: 1;
+            background-color: $primary;
+
+            &:hover {
+              opacity: 1;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  &__arrows {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+
+    @include media-breakpoint-down(sm) {
+      bottom: 10px;
+    }
+
+    .container {
+      text-align: right;
+
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+      }
+    }
+  }
+
+  &__counters-intro {
+    position: absolute;
+    bottom: 35px;
+    width: 100%;
+
+    @include media-breakpoint-down(sm) {
+      bottom: 10px;
+    }
+
+    .container {
+      text-align: left;
+
+      @include media-breakpoint-down(sm) {
+        text-align: center;
+      }
+    }
+
+    .carousel__counter {
+      display: flex;
+      align-items: baseline;
+
+      .carousel__current_num {
+        font-size: 30px;
+        color: $primary;
+        font-weight: 700;
+        margin-right: 3px;
+      }
+
+      .carousel__full_num {
+        color: #282828;
+        font-size: 16px;
+      }
+    }
+  }
+
+  .slick-prev,
+  .slick-next, &__arrow {
+    transform: none;
+    width: 58px;
+    height: 58px;
+    font-size: 0;
+    color: $light;
+    background-color: $primary;
+    z-index: 100;
+    border: 0;
+    outline: none;
+    border-radius: 50%;
+    margin-top: -29px;
+    background-image: linear-gradient(to top, #ff5d00 0%, #ff7e00 49%, #ff9c00 100%);
+
+    @include media-breakpoint-down(sm) {
+      width: 42px;
+      height: 32px;
+    }
+
+    &:before {
+      @extend .fal;
+      font-size: 28px;
+      color: inherit;
+    }
+
+    &.slick-disabled {
+      opacity: .5;
+    }
+
+    @include hover-focus-active() {
+      outline: none;
+    }
+  }
+
+  .slick-prev, &__prev {
+
+    &:before {
+      content: '\f104';
+    }
+  }
+
+  .slick-next, &__next {
+
+    &:before {
+      content: '\f105';
+    }
+  }
+
+  .carousel__cell {
+    height: inherit;
+  }
+
+  &-full {
+
+  }
+
+  &__cell {
+    &:last-of-type {
+      .card {
+        //margin-right: 0;
+      }
+    }
+  }
+
+  &.carousel-testimonials-masonry {
+    .card {
+      width: 340px;
+      margin-right: size(4);
+    }
+  }
+}
+
+.carousel-card {
+  margin-bottom: size(3);
+  overflow: initial;
+
+  .slick-list {
+    overflow: hidden;
+  }
+
+  //.carousel__item {
+  //  width: auto;
+  //}
+
+  .slick-arrow {
+    width: 33px;
+    height: 33px;
+    border: 1px solid #000000;
+    opacity: 0.07;
+    background: transparent;
+    margin: 0;
+    top: auto;
+    bottom: -41px;
+    color: #333;
+
+    &.slick-prev {
+      left: 35px;
+    }
+
+    &.slick-next {
+      right: 35px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+.carousel__counters-card {
+  .carousel__counter {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    color: #afafaf;
+
+    .carousel__current_num {
+      font-size: 16px;
+      margin-right: 3px;
+    }
+
+    .carousel__full_num {
+      font-size: 12px;
+    }
+  }
+}
+
+.carousel-intro {
+
+  .carousel__item {
+
+    img {
+      width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.carousel-testimonials {
+  .carousel__item {
+    margin: 0 15px;
+
+    .card {
+      background-color: #fafafa;
+      border-radius: $border-radius-lg;
+    }
+  }
+}

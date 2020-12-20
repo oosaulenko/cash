@@ -1,0 +1,42 @@
+.form-auth {
+
+  &__login, &__reg {
+    background-color: #fafafa;
+    border-radius: 60px;
+    max-width: 630px;
+    padding: 70px 140px;
+    margin: auto;
+    display: none;
+
+    form {
+
+    }
+
+    h2 {
+      color: $black;
+      font-size: 20px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: size(6);
+    }
+
+    &.active {
+      display: block;
+    }
+  }
+
+  &__login {
+    background-color: #fafafa;
+  }
+
+  &__reg {
+    background-color: #fafafa;
+  }
+
+  .form-link {
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+  }
+
+}

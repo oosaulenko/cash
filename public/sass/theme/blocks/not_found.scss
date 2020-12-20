@@ -1,0 +1,39 @@
+.not_found {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: size(6) size(4);
+
+  &__image {
+    margin-bottom: size(4);
+  }
+
+  &__title {
+    color: $gray-light;
+    font-size: 16px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.2px;
+  }
+
+}
+
+.scrollbar-track {
+  background: #F8FAFB !important;
+  border-radius: 20px;
+
+  .scrollbar-thumb {
+
+    &-y {
+      width: 6px;
+      background: $gray-light !important;
+    }
+
+  }
+
+  &-y {
+    width: 6px;
+  }
+
+}

@@ -1,0 +1,41 @@
+.modal-info {
+  .modal-body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.info-modal {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+
+  &__inner {
+    padding: 50px 0;
+    width: 100%;
+
+    @include media-breakpoint-down(sm) {
+      padding: 60px 10px;
+    }
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+
+    @include media-breakpoint-down(sm) {
+      font-size: 20px;
+    }
+  }
+
+  &__desc {
+    color: #5e5e5e;
+    margin-bottom: 40px;
+  }
+
+  &__image {
+    text-align: right;
+  }
+}

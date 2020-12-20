@@ -1,0 +1,24 @@
+.list {
+
+  &__item {
+
+  }
+
+}
+
+.list-month {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row-reverse;
+
+  .list__item {
+    width: 100%;
+    margin-bottom: 0;
+    padding: size(3);
+  }
+}
+
+@import "transactions";
+@import "categories";
+@import "balances";

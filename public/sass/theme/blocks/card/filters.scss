@@ -1,0 +1,18 @@
+.card.card-filters {
+
+  .card__content {
+    margin: - size(4);
+  }
+
+  .filter_inline {
+    border-bottom: 1px solid $border-color;
+    margin-bottom: size(4);
+  }
+
+  .filter_inline-date {
+    input {
+      display: none;
+    }
+  }
+
+}

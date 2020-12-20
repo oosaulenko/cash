@@ -1,0 +1,45 @@
+.social-links {
+
+  .fab {
+    width: 32px;
+    height: 32px;
+    color: #bebebe;
+    margin-right: 10px;
+    font-size: 26px;
+    text-align: center;
+    line-height: 30px;
+  }
+
+  a {
+    color: #bebebe;
+    display: inline-block;
+
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+
+      .fab {
+        color: $primary;
+        border-color: $primary;
+      }
+    }
+  }
+
+  .fa {
+    &-instagram-square {
+      color: #F3379A;
+    }
+
+    &-facebook {
+      color: #23599C;
+    }
+
+    &-vk {
+
+    }
+
+    &-whatsapp {
+      color: #00B047;
+    }
+  }
+}
