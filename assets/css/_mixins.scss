@@ -53,27 +53,21 @@
 
 @function size($size: 1) {
   @if $size == 1 {
-    @return calcRem(map_get($size-default, 1));
+    @return map_get($spacers, 1);
   }
   @if $size == 2 {
-    @return calcRem(map_get($size-default, 2));
+    @return map_get($spacers, 2);
   }
   @if $size == 3 {
-    @return calcRem(map_get($size-default, 3));
+    @return map_get($spacers, 3);
   }
   @if $size == 4 {
-    @return calcRem(map_get($size-default, 4));
+    @return map_get($spacers, 4);
   }
   @if $size == 5{
-    @return calcRem(map_get($size-default, 5));
+    @return map_get($spacers, 5);
   }
-  @if $size == 6{
-    @return calcRem(map_get($size-default, 6));
-  }
-  @if $size == 7{
-    @return calcRem(map_get($size-default, 7));
-  }
-  @if ($size < 1) or ($size > 7) {
+  @if ($size < 1) or ($size > 5) {
     @warn "$z-depth must be between 1 and 5";
   }
 }

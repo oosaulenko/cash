@@ -18,51 +18,66 @@ class CategoryType extends AbstractType
         $builder
             ->add('name', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-4'
                 ],
               'label' => 'Название',
+              'label_attr' => [
+                  'class' => 'form-label',
+              ],
               'attr' => [
-                  'class' => 'form-control',
+                  'class' => 'form-control-lg',
                   'placeholder' => 'Введите название категории'
               ]
             ])
             ->add('keywords', TextareaType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-4'
                 ],
                 'label' => 'Ключи категории',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control field-keywords',
+                    'class' => 'form-control-lg field-keywords',
                     'placeholder' => 'Введите через запятую ключи'
                 ]
             ])
             ->add('mcc', TextareaType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-4'
                 ],
                 'label' => 'MCC',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control field-mcc',
+                    'class' => 'form-control-lg field-mcc',
                     'placeholder' => 'Введите через запятую MCC-ключи'
                 ]
             ])
             ->add('icon', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-4'
                 ],
                 'label' => 'Иконка',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control-lg',
                     'placeholder' => 'Вставьте ключ иконки'
                 ]
             ])
             ->add('priority', NumberType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-4'
                 ],
                 'label' => 'Приоритет',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control-lg',
                 ]
             ])
             ->add('save', SubmitType::class, [
@@ -71,7 +86,7 @@ class CategoryType extends AbstractType
                 ],
                 'label' => 'Сохранить',
                 'attr' => [
-                    'class' => 'btn btn-primary mr-2'
+                    'class' => 'btn btn-primary btn-lg text-uppercase text-white me-2'
                 ]
             ])
             ->add('delete', SubmitType::class, [
@@ -80,7 +95,7 @@ class CategoryType extends AbstractType
                 ],
                 'label' => 'Удалить',
                 'attr' => [
-                    'class' => 'btn btn-danger'
+                    'class' => 'btn btn-danger text-uppercase text-white btn-lg'
                 ]
             ])
         ;

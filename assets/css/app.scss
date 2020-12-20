@@ -3,12 +3,12 @@
 
 // Add your variables into this file. Also add variables to overwrite Bootstrap
 @import "variables";
-//
-//// All mixins
-@import "mixins";
 
 // Loads Bootstrap 5.0 Beta
 @import "bootstrap";
+
+// All mixins
+@import "mixins";
 
 /* COMPONENTS:
 Accordion,
@@ -33,6 +33,9 @@ Toasts,
 Tooltips
  */
 @import "component/components";
+
+//
+@import "content/content";
 
 //
 @import "layout/layout";
