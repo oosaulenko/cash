@@ -1,0 +1,48 @@
+// !!! Pages cannot be included, they are generated independently
+
+
+// Add your variables into this file. Also add variables to overwrite Bootstrap
+@import "variables";
+//
+//// All mixins
+@import "mixins";
+
+// Loads Bootstrap 5.0 Beta
+@import "bootstrap";
+
+/* COMPONENTS:
+Accordion,
+Alerts,
+Badge,
+Breadcrumb,
+Buttons,
+Button group,
+Card,
+Carousel,
+Close button,
+Collapse,
+Dropdowns,
+List group,
+Modal,
+Pagination,
+Popovers,
+Progress,
+Scrollspy,
+Spinners,
+Toasts,
+Tooltips
+ */
+@import "component/components";
+
+//
+@import "layout/layout";
+
+//
+@import "form/form";
+
+//
+@import "section/section";
+
+
+// Optional files - If you dont use the corresponding scripts/fonts comment em out
+@import "fontawesome"; // Font Awesome 5
