@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method UserPrivatToken[]    findAll()
  * @method UserPrivatToken[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class UserPrivatTokenRepository extends ServiceEntityRepository
+class UserPrivatTokenRepository extends ServiceEntityRepository implements UserPrivatTokenRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {
@@ -47,4 +47,12 @@ class UserPrivatTokenRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param $user
+     * @return object|null
+     */
+    public function getToken($user): ?object {
+        return parent::findOneBy(['user' => $user]);
+    }
 }

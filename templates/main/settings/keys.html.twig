@@ -7,16 +7,22 @@
     <div class="card">
         <div class="card-body">
             <div class="card-content">
-                <div class="mb-4">
-                    {% for message in app.flashes('success') %}
-                        <div class="alert alert-success mb-3" role="alert">
-                            {{ message }}
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-                    {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success mb-3" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+
+                <div class="mb-5 pb-5 border-bottom">
+                    <h3>Monobank</h3>
+                    <div class="">{{ form(formMonobankToken) }}</div>
                 </div>
 
-                {{ form(formMonobankToken) }}
+                <div class="">
+                    <h3>ПриватБанк</h3>
+                    <div class="">{{ form(formPrivatToken) }}</div>
+                </div>
             </div>
         </div>
     </div>

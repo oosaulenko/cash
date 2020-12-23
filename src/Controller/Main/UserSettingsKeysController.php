@@ -4,12 +4,14 @@
 namespace App\Controller\Main;
 
 use App\Entity\UserMonobankToken;
+use App\Entity\UserPrivatToken;
 use App\Form\UserMonobankTokenType;
+use App\Form\UserPrivatTokenType;
 use App\Repository\UserMonobankTokenRepositoryInterface;
+use App\Repository\UserPrivatTokenRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserSettingsKeysController extends BaseController {
 
@@ -18,8 +20,14 @@ class UserSettingsKeysController extends BaseController {
      */
     private $userMonobankTokenRepository;
 
-    public function __construct(UserMonobankTokenRepositoryInterface $userMonobankTokenRepository ) {
+    /**
+     * @var UserPrivatTokenRepositoryInterface
+     */
+    private $userPrivatTokenRepository;
+
+    public function __construct(UserMonobankTokenRepositoryInterface $userMonobankTokenRepository, UserPrivatTokenRepositoryInterface $userPrivatTokenRepository) {
         $this->userMonobankTokenRepository = $userMonobankTokenRepository;
+        $this->userPrivatTokenRepository = $userPrivatTokenRepository;
     }
 
     /**
@@ -41,6 +49,17 @@ class UserSettingsKeysController extends BaseController {
         $formMonobankToken = $this->createForm(UserMonobankTokenType::class, $userMonobankToken);
         $formMonobankToken->handleRequest($request);
 
+        $userPrivatToken = $this->userPrivatTokenRepository->getToken($this->getUser());
+
+        if(!$userPrivatToken) {
+            $userPrivatToken = new UserPrivatToken();
+            $userPrivatToken->setUser($this->getUser());
+            $em->persist($userPrivatToken);
+        }
+
+        $formPrivatToken = $this->createForm(UserPrivatTokenType::class, $userPrivatToken);
+        $formPrivatToken->handleRequest($request);
+
         if($formMonobankToken->isSubmitted() && $formMonobankToken->isValid()) {
             if($formMonobankToken->get('save')->isClicked()) {
                 $this->addFlash('success', 'Токен monobank обновлен');
@@ -50,10 +69,20 @@ class UserSettingsKeysController extends BaseController {
             return $this->redirectToRoute('user_settings_keys');
         }
 
+        if($formPrivatToken->isSubmitted() && $formPrivatToken->isValid()) {
+            if($formPrivatToken->get('save')->isClicked()) {
+                $this->addFlash('success', 'Токен privatBank обновлен');
+            }
+
+            $em->flush();
+            return $this->redirectToRoute('user_settings_keys');
+        }
+
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Ключи доступа';
-//        $forRender['user_keys'] = $userMonobankToken;
+
         $forRender['formMonobankToken'] = $formMonobankToken->createView();
+        $forRender['formPrivatToken'] = $formPrivatToken->createView();
 
         return $this->render('main/settings/keys.html.twig', $forRender);
     }
