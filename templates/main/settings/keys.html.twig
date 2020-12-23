@@ -1,0 +1,24 @@
+{% extends 'main/base.html.twig' %}
+
+{% block title %} Ключи доступа - LooCash {% endblock %}
+
+{% block body %}
+
+    <div class="card">
+        <div class="card-body">
+            <div class="card-content">
+                <div class="mb-4">
+                    {% for message in app.flashes('success') %}
+                        <div class="alert alert-success mb-3" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+
+                {{ form(formMonobankToken) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
