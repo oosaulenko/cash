@@ -1,0 +1,15 @@
+.logo {
+  color: $primary;
+  font-weight: 300;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  b {
+    font-weight: 600;
+  }
+
+  &-lg {
+    font-size: 32px;
+  }
+
+}
