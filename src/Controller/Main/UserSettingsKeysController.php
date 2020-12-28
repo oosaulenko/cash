@@ -12,6 +12,7 @@ use App\Repository\UserPrivatTokenRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class UserSettingsKeysController extends BaseController {
 
