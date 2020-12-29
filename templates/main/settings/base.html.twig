@@ -22,14 +22,21 @@
                                 </div>
                             {% endfor %}
 
+                            {% for message in app.flashes('danger') %}
+                                <div class="alert alert-danger mb-3" role="alert">
+                                    {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            {% endfor %}
+
                             {% block content %}{% endblock %}
                         </div>
                     </div>
                     <div class="col-sm-3 p-0 border-start">
 
                         <div class="nav flex-column" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link pt-0 pb-0 mb-3 {% if not type %} active text-dark border-start border-2 border-dark {% endif %}" href="{{ path('user_settings') }}" role="tab" aria-controls="v-pills-home" aria-selected="true">Основное</a>
-                            <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-profile" aria-selected="false">Безопасность</a>
+                            <a class="nav-link pt-0 pb-0 mb-3 {% if type == 'general' %} active text-dark border-start border-2 border-dark {% endif %}" href="{{ path('user_settings') }}" role="tab" aria-controls="v-pills-home" aria-selected="true">Основное</a>
+                            <a class="nav-link pt-0 pb-0 mb-3 {% if type == 'security' %} active text-dark border-start border-2 border-dark {% endif %}" href="{{ path('user_settings_security') }}" role="tab" aria-controls="v-pills-profile" aria-selected="false">Безопасность</a>
                             <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-messages" aria-selected="false">Лимиты</a>
                             <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-messages" aria-selected="false">Уведомления</a>
                             <a class="nav-link pt-0 pb-0 {% if type == 'keys' %} active text-dark border-start border-2 border-dark {% endif %}" href="{{ path('user_settings_keys') }}" role="tab" aria-selected="false">Ключи доступа</a>

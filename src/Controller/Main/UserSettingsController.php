@@ -18,6 +18,7 @@ class UserSettingsController extends BaseController {
 
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Настройки профиля';
+        $forRender['type'] = 'general';
 
         return $this->render('main/settings/index.html.twig', $forRender);
     }
