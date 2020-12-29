@@ -44,7 +44,6 @@ class UserSettingsKeysController extends BaseController {
         if(!$userMonobankToken) {
             $userMonobankToken = new UserMonobankToken();
             $userMonobankToken->setUser($this->getUser());
-            $em->persist($userMonobankToken);
         }
 
         $formMonobankToken = $this->createForm(UserMonobankTokenType::class, $userMonobankToken);
@@ -55,13 +54,14 @@ class UserSettingsKeysController extends BaseController {
         if(!$userPrivatToken) {
             $userPrivatToken = new UserPrivatToken();
             $userPrivatToken->setUser($this->getUser());
-            $em->persist($userPrivatToken);
         }
 
         $formPrivatToken = $this->createForm(UserPrivatTokenType::class, $userPrivatToken);
         $formPrivatToken->handleRequest($request);
 
         if($formMonobankToken->isSubmitted() && $formMonobankToken->isValid()) {
+            $em->persist($userMonobankToken);
+
             if($formMonobankToken->get('save')->isClicked()) {
                 $this->addFlash('success', 'Токен monobank обновлен');
             }
@@ -71,6 +71,8 @@ class UserSettingsKeysController extends BaseController {
         }
 
         if($formPrivatToken->isSubmitted() && $formPrivatToken->isValid()) {
+            $em->persist($userPrivatToken);
+
             if($formPrivatToken->get('save')->isClicked()) {
                 $this->addFlash('success', 'Токен privatBank обновлен');
             }
