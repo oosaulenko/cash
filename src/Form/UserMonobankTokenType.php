@@ -16,9 +16,9 @@ class UserMonobankTokenType extends AbstractType
         $builder
             ->add('token', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group mb-4'
+                    'class' => 'form-group'
                 ],
-                'label' => 'Monobank токен',
+                'label' => 'Токен',
                 'label_attr' => [
                     'class' => 'form-label',
                 ],

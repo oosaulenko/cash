@@ -83,6 +83,7 @@ class UserSettingsKeysController extends BaseController {
 
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Ключи доступа';
+        $forRender['type'] = 'keys';
 
         $forRender['formMonobankToken'] = $formMonobankToken->createView();
         $forRender['formPrivatToken'] = $formPrivatToken->createView();

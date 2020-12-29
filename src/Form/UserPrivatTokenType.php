@@ -16,7 +16,7 @@ class UserPrivatTokenType extends AbstractType
         $builder
             ->add('privat_id', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group mb-4'
+                    'class' => 'form-group'
                 ],
                 'label' => 'Privat ID',
                 'label_attr' => [
@@ -29,7 +29,7 @@ class UserPrivatTokenType extends AbstractType
             ])
             ->add('pass', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group mb-4'
+                    'class' => 'form-group'
                 ],
                 'label' => 'Пароль',
                 'label_attr' => [
