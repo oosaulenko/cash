@@ -12,7 +12,7 @@
                     </div>
                 {% endfor %}
 
-                <div class="row">
+                <div class="row g-5">
                     <div class="col-sm-9">
                         <div class="pe-3">
                             {% for message in app.flashes('success') %}
@@ -27,8 +27,8 @@
                     </div>
                     <div class="col-sm-3 p-0 border-start">
 
-                        <div class="nav flex-column me-3" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link pt-0 pb-0 mb-3 {% if not type %} active text-dark border-start border-2 border-dark {% endif %}" href="#" role="tab" aria-controls="v-pills-home" aria-selected="true">Основное</a>
+                        <div class="nav flex-column" role="tablist" aria-orientation="vertical">
+                            <a class="nav-link pt-0 pb-0 mb-3 {% if not type %} active text-dark border-start border-2 border-dark {% endif %}" href="{{ path('user_settings') }}" role="tab" aria-controls="v-pills-home" aria-selected="true">Основное</a>
                             <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-profile" aria-selected="false">Безопасность</a>
                             <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-messages" aria-selected="false">Лимиты</a>
                             <a class="nav-link pt-0 pb-0 mb-3" href="#" role="tab" aria-controls="v-pills-messages" aria-selected="false">Уведомления</a>

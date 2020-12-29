@@ -42,7 +42,7 @@ class UserPrivatTokenType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'row_attr' => [
-                    'class' => 'w-auto d-inline-block'
+                    'class' => 'd-grid'
                 ],
                 'label' => 'Сохранить',
                 'attr' => [
