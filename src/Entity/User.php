@@ -42,6 +42,16 @@ class User implements UserInterface
      */
     private $cards;
 
+    /**
+     * @ORM\OneToOne(targetEntity=UserMonobankToken::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $monobank_token;
+
+    /**
+     * @ORM\OneToOne(targetEntity=UserPrivatToken::class, mappedBy="user", cascade={"persist", "remove"})
+     */
+    private $userPrivatToken;
+
     public function __construct()
     {
         $this->cards = new ArrayCollection();
@@ -161,6 +171,40 @@ class User implements UserInterface
                 $card->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMonobankToken(): ?UserMonobankToken
+    {
+        return $this->monobank_token;
+    }
+
+    public function setMonobankToken(UserMonobankToken $monobank_token): self
+    {
+        // set the owning side of the relation if necessary
+        if ($monobank_token->getUser() !== $this) {
+            $monobank_token->setUser($this);
+        }
+
+        $this->monobank_token = $monobank_token;
+
+        return $this;
+    }
+
+    public function getUserPrivatToken(): ?UserPrivatToken
+    {
+        return $this->userPrivatToken;
+    }
+
+    public function setUserPrivatToken(UserPrivatToken $userPrivatToken): self
+    {
+        // set the owning side of the relation if necessary
+        if ($userPrivatToken->getUser() !== $this) {
+            $userPrivatToken->setUser($this);
+        }
+
+        $this->userPrivatToken = $userPrivatToken;
 
         return $this;
     }

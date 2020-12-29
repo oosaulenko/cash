@@ -23,12 +23,13 @@
                     <span>{{ title }}</span>
                 </div>
 
-                <div class="col header__account text-right">
-                    Account
+                <div class="col header__account text-end">
+                    <a href="{{ path('app_logout') }}">{{ app.user.username }}</a>
                 </div>
             </div>
         </div>
     </header><!-- .site-navigation -->
+
 
     <div class="sidenav bg-white">
         <a href="/" class="navbar-brand text-center">Loo<b>Cash</b></a>
@@ -50,7 +51,7 @@
                 <a href="/"><i class="fal fa-chart-line"></i><span>Отчет</span></a>
             </div>
             <div class="sidenav__item">
-                <a href="/settings"><i class="fal fa-cog"></i><span>Настройки</span></a>
+                <a href="{{ path('user_settings') }}"><i class="fal fa-cog"></i><span>Настройки</span></a>
             </div>
         </nav>
     </div>

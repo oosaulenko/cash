@@ -12,16 +12,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
-class SecurityController extends AbstractController
-{
+class SecurityController extends AbstractController {
     /**
      * @Route("/login", name="app_login")
      * @param AuthenticationUtils $authenticationUtils
      *
      * @return Response
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
-    {
+    public function login(AuthenticationUtils $authenticationUtils) : Response {
 //         if ($this->getUser()) {
 //             return $this->redirectToRoute('target_path');
 //         }
@@ -38,16 +36,16 @@ class SecurityController extends AbstractController
      * @Route("/sign_up", name="sign_up")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     *
      * @return RedirectResponse|Response
      */
-    public function sign_up(Request $request, UserPasswordEncoderInterface $passwordEncoder){
+    public function sign_up(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 
-        if(($form->isSubmitted()) && ($form->isValid()))
-        {
+        if ( ($form->isSubmitted()) && ($form->isValid()) ) {
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             $user->setRoles(["ROLE_ADMIN"]);
@@ -64,10 +62,18 @@ class SecurityController extends AbstractController
     }
 
     /**
+     * @Route("/settings/security", name="user_security")
+     * @param Request $request
+     * @param UserPasswordEncoderInterface $passwordEncoder
+     */
+    public function updatePassword(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
+
+    }
+
+    /**
      * @Route("/logout", name="app_logout")
      */
-    public function logout()
-    {
+    public function logout() {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
     }
 }

@@ -8,3 +8,7 @@ config:
   xdebug: true
   config:
     server: config/server.conf
+services:
+  myservice:
+    type: mysql
+    portforward: 53600
