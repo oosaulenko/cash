@@ -4,6 +4,14 @@
 
 {% block body %}
 
-<h1>{{ title }}</h1>
+    <table class="table table-striped">
+        {% for card in cards %}
+
+            <tr>
+                <td>{{ card.bank }}</td>
+            </tr>
+
+        {% endfor %}
+    </table>
 
 {% endblock %}

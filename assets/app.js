@@ -10,5 +10,9 @@ import './css/app.scss';
 
 var $ = require('jquery');
 import 'bootstrap';
+import './js/axios.min.js';
+
 
 import './js/main';
+import './js/form';
+

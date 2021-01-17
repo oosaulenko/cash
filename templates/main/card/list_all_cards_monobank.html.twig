@@ -1,0 +1,21 @@
+{% extends 'main/base.html.twig' %}
+
+{% block title %} Monobank карты - LooCash {% endblock %}
+
+{% block body %}
+
+    {{ dump(accounts) }}
+
+    <table class="table table-striped">
+        {% for account in accounts %}
+            <tr>
+                <td>{{ account.id }}</td>
+                <td>{{ account.balance }}</td>
+                <td>{{ account.creditLimit }}</td>
+                <td>{{ account.currencyCode }}</td>
+                <td>{{ account.cashbackType }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

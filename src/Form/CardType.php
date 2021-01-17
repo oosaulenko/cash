@@ -17,11 +17,14 @@ class CardType extends AbstractType
         $builder
             ->add('bank', ChoiceType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-3'
                 ],
                 'label' => 'Банк',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                  'class' => 'field-select'
+                  'class' => 'field-select form-control-lg'
                 ],
                 'choices' => [
                     'Приват Банк' => 'privat_bank',
@@ -30,32 +33,41 @@ class CardType extends AbstractType
             ])
             ->add('name', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-3'
                 ],
                 'label' => 'Название карты',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control-lg',
                     'placeholder' => 'Название карты для отображения в системе'
                 ]
             ])
             ->add('number_card', TextType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-3'
                 ],
                 'label' => 'Номер карты',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control-lg',
                     'placeholder' => ''
                 ],
                 'required' => false
             ])
             ->add('currency', ChoiceType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-3'
                 ],
                 'label' => 'Валюта',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'field-select'
+                    'class' => 'field-select form-control-lg'
                 ],
                 'choices' => [
                     'Гривна' => 'UAH',
@@ -63,24 +75,13 @@ class CardType extends AbstractType
                     'Евро' => 'EAH'
                 ]
             ])
-            ->add('key_card', TextType::class, [
-                'row_attr' => [
-                    'class' => 'form-group'
-                ],
-                'label' => 'Ключ карты',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => ''
-                ],
-                'required' => false
-            ])
             ->add('save', SubmitType::class, [
                 'row_attr' => [
                     'class' => 'form-group'
                 ],
                 'label' => 'Добавить',
                 'attr' => [
-                    'class' => 'btn btn-primary btn-block'
+                    'class' => 'btn btn-primary btn-lg text-white'
                 ]
             ])
         ;
