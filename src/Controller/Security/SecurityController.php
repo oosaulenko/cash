@@ -3,6 +3,8 @@
 namespace App\Controller\Security;
 
 use App\Entity\User;
+use App\Form\ChangePasswordFormType;
+use App\Form\UserChangePasswordType;
 use App\Form\UserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -62,12 +64,48 @@ class SecurityController extends AbstractController {
     }
 
     /**
-     * @Route("/settings/security", name="user_security")
+     * @Route("/settings/security", name="user_settings_security")
      * @param Request $request
      * @param UserPasswordEncoderInterface $passwordEncoder
+     *
+     * @return RedirectResponse|Response
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $passwordEncoder) {
 
+        $user = $this->getUser();
+
+        $form = $this->createForm(UserChangePasswordType::class);
+        $em = $this->getDoctrine()->getManager();
+        $form->handleRequest($request);
+
+        if ( ($form->isSubmitted()) && ($form->isValid()) ) {
+
+            $old_password = $passwordEncoder->isPasswordValid($user, $form->get('oldPassword')->getData());
+
+            if ( $old_password == false ) {
+                $this->addFlash('danger', 'Старый пароль не совпадает');
+            } else {
+                $password = $passwordEncoder->encodePassword($user, $form->get('plainPassword')->getData());
+                $user->setPassword($password);
+                $em->persist($user);
+                $em->flush();
+
+                $this->addFlash('success', 'Пароль обновлен');
+            }
+
+            if ( !$form->isValid() ) {
+                $this->addFlash('danger', 'Пароли не совпадают');
+            }
+
+            return $this->redirectToRoute('user_settings_security');
+        }
+
+        $forRender = [];
+        $forRender['title'] = 'Безопасность';
+        $forRender['type'] = 'security';
+        $forRender['form'] = $form->createView();
+
+        return $this->render('main/settings/security.html.twig', $forRender);
     }
 
     /**

@@ -37,6 +37,8 @@ class User implements UserInterface
 
     private $plainPassword;
 
+    private $oldPassword;
+
     /**
      * @ORM\OneToMany(targetEntity=Card::class, mappedBy="user")
      */
@@ -143,6 +145,16 @@ class User implements UserInterface
     public function setPlainPassword($password)
     {
         $this->plainPassword = $password;
+    }
+
+    public function getOldPassword()
+    {
+        return $this->oldPassword;
+    }
+
+    public function setOldPassword($password)
+    {
+        $this->oldPassword = $password;
     }
 
     /**

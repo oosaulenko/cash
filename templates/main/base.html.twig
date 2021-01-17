@@ -32,7 +32,9 @@
 
 
     <div class="sidenav bg-white">
-        <a href="/" class="navbar-brand text-center">Loo<b>Cash</b></a>
+        <div class="navbar-brand text-center border-bottom">
+            <a href="/" class="logo">Loo<b>Cash</b></a>
+        </div>
 
         <nav class="sidenav__menu">
             <div class="sidenav__item">
@@ -58,7 +60,7 @@
 {% endif %}
 
 <div class="container-fluid">
-    <div class="page-block mt-4">
+    <div class="page-block mt-4 ps-3 pe-3">
         {% block body %}{% endblock %}
     </div>
 </div>
