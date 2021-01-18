@@ -1,9 +1,12 @@
 {% extends 'main/base.html.twig' %}
 
-{% block title %}  - LooCash {% endblock %}
-
 {% block body %}
 
+    {{ include('main/card/_form.html.twig') }}
 
+{% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('form') }}
 {% endblock %}

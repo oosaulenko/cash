@@ -14,5 +14,4 @@ import './js/axios.min.js';
 
 
 import './js/main';
-import './js/form';
 

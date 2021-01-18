@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}LooCash{% endblock %}</title>
+    <title>{% block title %} {{ title }} {% endblock %} - LooCash</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <link rel="icon" type="image/png" href="/favicon.png"/>
     {% block stylesheets %}
@@ -24,8 +24,9 @@
                     <span>{{ title }}</span>
                 </div>
 
-                <div class="col header__account text-end">
-                    <a href="{{ path('app_logout') }}">{{ app.user.username }}</a>
+                <div class="col header__account d-flex justify-content-end align-items-center">
+                    <div class="header__account_icon me-3 border border-2 rounded-circle text-center align-items-center">{{ random(['⛷', '🏋', '🎿', '🏄', '🏂', '🏇', '🚴', '⚽', '🎾', '🏀', '🏈', '🏌']) }}</div>
+                    <div class="header__account_name"><a href="{{ path('app_logout') }}" class="text-dark">{{ app.user.username }}</a></div>
                 </div>
             </div>
         </div>
@@ -62,6 +63,8 @@
 
 <div class="container-fluid">
     <div class="page-block mt-4 ps-3 pe-3">
+        {{ include('main/_alerts.html.twig') }}
+
         {% block body %}{% endblock %}
     </div>
 </div>

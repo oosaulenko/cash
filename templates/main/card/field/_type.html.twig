@@ -1,0 +1,7 @@
+{% if type == 'VISA' %}
+    <img src="{{ asset('assets/main/images/icon/visa.svg') }}" alt="">
+{% elseif type == 'MasterCard' %}
+    <img src="{{ asset('assets/main/images/icon/mastercard.svg') }}" alt="">
+{% else %}
+    {{ random(['😍', '😝', '😸', '🙈', '😈']) }}
+{% endif %}

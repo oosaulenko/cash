@@ -69,6 +69,14 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
     */
 
     /**
+     * @param int $cardId
+     * @return mixed|object|null
+     */
+    public function getOne(int $cardId): ?object {
+        return parent::find($cardId);
+    }
+
+    /**
      * @param $user
      * @return array
      */
@@ -85,10 +93,9 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
      */
     public function getListCardMonobankAPI($token) {
 
-        try{
+        try {
             $monobank = new Monobank($token);
-        }
-        catch(InternalErrorException $e){
+        } catch(InternalErrorException $e) {
             return $e->getMessage();
         }
 
@@ -106,5 +113,35 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
             return $e->getMessage();
         }
 
+    }
+
+    /**
+     * @param $currency
+     * @return string
+     */
+    public function getCurrencyCard($currency): string {
+
+        switch($currency) {
+            case '980':
+                $currency_name = 'UAH';
+                break;
+
+            case '840':
+                $currency_name = 'USD';
+                break;
+
+            case '978':
+                $currency_name = 'EUR';
+                break;
+
+            case '985':
+                $currency_name = 'PLN';
+                break;
+
+            default:
+                $currency_name = 'UAH';
+        }
+
+        return $currency_name;
     }
 }

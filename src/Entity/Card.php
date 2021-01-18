@@ -70,6 +70,16 @@ class Card
      */
     private $transactions;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $status;
+
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $type;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -224,6 +234,30 @@ class Card
                 $transaction->setCard(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStatus(): ?bool
+    {
+        return $this->status;
+    }
+
+    public function setStatus(bool $status): self
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): self
+    {
+        $this->type = $type;
 
         return $this;
     }

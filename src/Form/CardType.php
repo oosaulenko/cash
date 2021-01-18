@@ -24,11 +24,11 @@ class CardType extends AbstractType
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                  'class' => 'field-select form-control-lg'
+                  'class' => 'field-select form-control-lg form-select form-select-lg'
                 ],
                 'choices' => [
-                    'Приват Банк' => 'privat_bank',
-                    'Monobank' => 'monobank'
+                    'Приват Банк' => 'Приват Банк',
+                    'Monobank' => 'Monobank'
                 ]
             ])
             ->add('name', TextType::class, [
@@ -54,7 +54,9 @@ class CardType extends AbstractType
                 ],
                 'attr' => [
                     'class' => 'form-control-lg',
-                    'placeholder' => ''
+                    'placeholder' => '0000 0000 0000 0000',
+                    'data-mask' => '0000 0000 0000 0000',
+                    'data-mask-clearifnotmatch' => 'true'
                 ],
                 'required' => false
             ])
@@ -67,7 +69,7 @@ class CardType extends AbstractType
                     'class' => 'form-label',
                 ],
                 'attr' => [
-                    'class' => 'field-select form-control-lg'
+                    'class' => 'field-select form-control-lg form-select form-select-lg'
                 ],
                 'choices' => [
                     'Гривна' => 'UAH',
@@ -75,13 +77,20 @@ class CardType extends AbstractType
                     'Евро' => 'EAH'
                 ]
             ])
-            ->add('save', SubmitType::class, [
+            ->add('type', ChoiceType::class, [
                 'row_attr' => [
-                    'class' => 'form-group'
+                    'class' => 'form-group mb-3'
                 ],
-                'label' => 'Добавить',
+                'label' => 'Платежная система',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
                 'attr' => [
-                    'class' => 'btn btn-primary btn-lg text-white'
+                    'class' => 'field-select form-control-lg form-select form-select-lg'
+                ],
+                'choices' => [
+                    'VISA' => 'VISA',
+                    'MasterCard' => 'MasterCard'
                 ]
             ])
         ;
