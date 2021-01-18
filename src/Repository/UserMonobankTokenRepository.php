@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\UserMonobankToken;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\NoResultException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -53,5 +55,21 @@ class UserMonobankTokenRepository extends ServiceEntityRepository implements Use
      */
     public function getToken($user): ?object {
         return parent::findOneBy(['user' => $user]);
+    }
+
+    /**
+     * @param $user
+     * @return int|mixed|string|null
+     * @throws NonUniqueResultException
+     * @throws NoResultException
+     */
+    public function getTokenID($user) {
+
+        return $this->createQueryBuilder('t')
+            ->select('t.token')
+            ->andWhere('t.user = :user')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult();
     }
 }

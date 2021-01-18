@@ -11,5 +11,10 @@ interface UserMonobankTokenRepositoryInterface {
      */
     public function getToken($user);
 
+    /**
+     * @param $user
+     */
+    public function getTokenID($user);
+
 
 }

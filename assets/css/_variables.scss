@@ -302,7 +302,7 @@ $font-size-sm:                $font-size-base * .875;
 //$font-weight-lighter:         lighter;
 //$font-weight-light:           300;
 //$font-weight-normal:          400;
-//$font-weight-bold:            700;
+$font-weight-bold:            500;
 //$font-weight-bolder:          bolder;
 
 //$font-weight-base:            $font-weight-normal;
@@ -895,7 +895,7 @@ $card-border-color:                 transparent;
 //$card-inner-border-radius:          subtract($card-border-radius, $card-border-width);
 //$card-cap-padding-y:                $card-spacer-y / 2;
 //$card-cap-padding-x:                $card-spacer-x;
-//$card-cap-bg:                       rgba($black, .03);
+$card-cap-bg:                       transparent;
 //$card-cap-color:                    null;
 //$card-height:                       null;
 //$card-color:                        null;

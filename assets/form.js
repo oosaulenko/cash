@@ -8,7 +8,8 @@
 // any CSS you import will output into a single css file (app.css in this case)
 // import './css/app.scss';
 
-var $ = require('jquery');
+import './js/jquery.mask.min';
+import './js/form';
 
 // import 'jquery/dist/jquery.min';
 // import 'bootstrap/dist/js/bootstrap.bundle.min';

@@ -16,13 +16,16 @@
                 <div class="col-sm-3">
                     {{ form_row(formMonobankToken.save) }}
                 </div>
+                <div class="col-sm-12">
+                    <div id="emailHelp" class="form-text">Инструкция для получения токена <a href="#" target="_blank">ссылка</a></div>
+                </div>
             </div>
             {{ form_end(formMonobankToken) }}
         </div>
     </div>
 
     <div class="">
-        <h6 class="display-5 pb-2 mb-3 border-bottom text-black-50">ПриватБанк</h6>
+        <h6 class="display-5 pb-2 mb-3 border-bottom text-black-50">ПриватБанк Мерчант</h6>
         <div class="">
             {{ form_start(formPrivatToken) }}
             {{ form_errors(formPrivatToken) }}
@@ -35,6 +38,9 @@
                 </div>
                 <div class="col-sm-3">
                     {{ form_row(formPrivatToken.save) }}
+                </div>
+                <div class="col-sm-12">
+                    <div id="emailHelp" class="form-text">Инструкция для получению PrivatID и Pass <a href="#" target="_blank">ссылка</a></div>
                 </div>
             </div>
             {{ form_end(formPrivatToken) }}

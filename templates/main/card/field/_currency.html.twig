@@ -1,0 +1,11 @@
+{% if currency == 'UAH' %}
+    ₴
+{% elseif currency == 'USD' %}
+    $
+{% elseif currency == 'EUR' %}
+    €
+{% elseif currency == 'PLN' %}
+    Zł
+{% else %}
+    ₴
+{% endif %}

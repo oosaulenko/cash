@@ -25,7 +25,7 @@ class UserMonobankTokenType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-lg',
                     'placeholder' => 'Введите токен монобанка'
-                ]
+                ],
             ])
             ->add('save', SubmitType::class, [
                 'row_attr' => [

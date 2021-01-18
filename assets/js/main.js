@@ -11,12 +11,4 @@
         }
     });
 
-    if (document.querySelector('.field-select')) {
-        $('.field-select').selectize({
-            create: true,
-            sortField: 'text'
-        });
-    }
-
-
 })(jQuery);
