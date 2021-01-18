@@ -115,17 +115,30 @@ class CardController extends BaseController {
      */
     public function listAllCardMonobank(): Response {
 
+        $defaultNameCard = [
+            'Компьютер Билла Гейтса',
+            'Посылка от Джеффа Безоса',
+            'Провидец Уоррен Баффетт',
+            'Поиск Ларри Пейджа 🔎',
+            'Ракета Илона Маска 🚀',
+            'Роскошь Бернара Арно 🛍',
+            'Машина Генри Форда 🚘',
+            'Гениальность Павла Дурова',
+        ];
+
         $accounts = $this->cardRepository->getListCardMonobankAPI($this->userMonobankTokenRepository->getTokenID($this->getUser()));
 
         foreach($accounts as $account) {
             $em = $this->getDoctrine()->getManager();
             $card = new Card();
-            $card->setName('Без названия');
+            $card->setName($defaultNameCard[rand(0, 5)]);
             $card->setCreateAtValue();
             $card->setUpdateAtValue();
             $card->setUser($this->getUser());
             $card->setBalance($account->balance() / 100);
             $card->setBank('Monobank');
+            $card->setStatus(1);
+            $card->setType(0);
             $card->setKeyCard($account->id());
             $card->setCurrency($this->cardRepository->getCurrencyCard($account->currencyCode()));
             $em->persist($card);
