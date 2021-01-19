@@ -56,16 +56,6 @@ class Card
     private $key_card;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $create_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $update_at;
-
-    /**
      * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="card")
      */
     private $transactions;
@@ -79,6 +69,16 @@ class Card
      * @ORM\Column(type="string", length=20)
      */
     private $type;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $time_create;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $time_update;
 
     public function __construct()
     {
@@ -174,40 +174,6 @@ class Card
         return $this;
     }
 
-    public function getCreateAt(): ?\DateTimeInterface
-    {
-        return $this->create_at;
-    }
-
-    public function setCreateAtValue()
-    {
-        $this->create_at = new \DateTime();
-    }
-
-    public function setCreateAt(\DateTimeInterface $create_at): self
-    {
-        $this->create_at = $create_at;
-
-        return $this;
-    }
-
-    public function getUpdateAt(): ?\DateTimeInterface
-    {
-        return $this->update_at;
-    }
-
-    public function setUpdateAtValue()
-    {
-        $this->update_at = new \DateTime();
-    }
-
-    public function setUpdateAt(\DateTimeInterface $update_at): self
-    {
-        $this->update_at = $update_at;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Transaction[]
      */
@@ -258,6 +224,30 @@ class Card
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getTimeCreate(): ?int
+    {
+        return $this->time_create;
+    }
+
+    public function setTimeCreate(int $time_create): self
+    {
+        $this->time_create = $time_create;
+
+        return $this;
+    }
+
+    public function getTimeUpdate(): ?int
+    {
+        return $this->time_update;
+    }
+
+    public function setTimeUpdate(int $time_update): self
+    {
+        $this->time_update = $time_update;
 
         return $this;
     }

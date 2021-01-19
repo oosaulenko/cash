@@ -12,7 +12,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Transaction[]    findAll()
  * @method Transaction[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TransactionRepository extends ServiceEntityRepository
+class TransactionRepository extends ServiceEntityRepository implements TransactionRepositoryInterface
 {
     public function __construct(ManagerRegistry $registry)
     {

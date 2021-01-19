@@ -30,4 +30,13 @@ interface CardRepositoryInterface {
      */
     public function getCurrencyCard($currency): string;
 
+    /**
+     * @param $token
+     * @param $keyCard
+     * @param $from
+     * @param $to
+     * @return mixed
+     */
+    public function getCardTransactions($token, $keyCard, $from, $to);
+
 }

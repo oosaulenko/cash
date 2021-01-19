@@ -1,0 +1,25 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+    {% if transactions %}
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between">
+                Транзакции
+            </div>
+            <div class="card-body">
+                <div class="card-content">
+                    {{ include('main/transaction/_transaction.html.twig', {'transactions' : transactions}) }}
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="empty empty_cards text-center pt-5">
+            <div class="empty__image mb-5"><img src="{{ asset('assets/main/images/not_found/card.svg') }}" alt=""></div>
+            <div class="empty__text text-muted mb-4">У вас нету банковских карт</div>
+            <div class="empty__actions">
+                <a href="{{ path('card_add') }}" class="btn btn-primary btn-lg text-white">Добавить карту</a>
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}

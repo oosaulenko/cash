@@ -59,15 +59,15 @@ class Transaction
     private $cashback;
 
     /**
-     * @ORM\Column(type="integer")
-     */
-    private $create_at;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="transactions")
      * @ORM\JoinColumn(nullable=false)
      */
     private $category;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $time;
 
     public function getId(): ?int
     {
@@ -170,18 +170,6 @@ class Transaction
         return $this;
     }
 
-    public function getCreateAt(): ?int
-    {
-        return $this->create_at;
-    }
-
-    public function setCreateAt(int $create_at): self
-    {
-        $this->create_at = $create_at;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -190,6 +178,18 @@ class Transaction
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getTime(): ?int
+    {
+        return $this->time;
+    }
+
+    public function setTime(int $time): self
+    {
+        $this->time = $time;
 
         return $this;
     }
