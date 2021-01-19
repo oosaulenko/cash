@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Card;
+use Carbon\Carbon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
@@ -143,5 +144,35 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
         }
 
         return $currency_name;
+    }
+
+    /**
+     * @param $token
+     * @param $keyCard
+     * @param $from
+     * @param $to
+     * @return mixed|string
+     */
+    public function getCardTransactions($token, $keyCard, $from, $to) {
+
+        try {
+            $monobank = new Monobank($token);
+        } catch(InternalErrorException $e) {
+            return $e->getMessage();
+        }
+
+        try {
+            return $monobank->personal->getStatement($keyCard, $from, $to)->statements();
+        } catch(InternalErrorException $e) {
+            return $e->getMessage();
+        } catch(InvalidAccountException $e) {
+            return $e->getMessage();
+        } catch(MonobankException $e) {
+            return $e->getMessage();
+        } catch(TooManyRequestsException $e) {
+            return ['code' => 521, 'message' => 'Большое количество запросов', 'test' => $e->getCode()];
+        } catch(UnknownTokenException $e) {
+            return $e->getMessage();
+        }
     }
 }

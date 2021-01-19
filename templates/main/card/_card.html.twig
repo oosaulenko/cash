@@ -25,6 +25,9 @@
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{ card.id }}">
                         <li><a class="dropdown-item"
+                               href="{{ path('card_transactions_update', {'cardId': card.id}) }}">Обновить транзакции</a>
+                        </li>
+                        <li><a class="dropdown-item"
                                href="{{ path('card_update', {'cardId': card.id}) }}">Редактировать</a>
                         </li>
                         <li>
