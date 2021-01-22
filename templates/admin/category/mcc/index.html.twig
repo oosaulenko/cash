@@ -1,0 +1,38 @@
+{% extends 'main/base.html.twig' %}
+
+{% block body %}
+
+    <div class="mb-4">
+        <a href="{{ path('admin_category_mcc_create') }}" class="btn btn-primary btn-lg text-uppercase text-white">Добавить mcc</a>
+        <a href="{{ path('admin_category') }}" class="btn btn-secondary btn-lg text-uppercase text-white">Категории</a>
+    </div>
+
+    <table class="table table-striped table-hover">
+
+        <tr>
+            <th>Код</th>
+            <th>Категория</th>
+            <th>Имя</th>
+            <th class="text-end">Событие</th>
+        </tr>
+
+        {% for category_mcc in categories %}
+            <tr>
+                <td><b>{{ category_mcc.code }}</b></td>
+                <td>{{ category_mcc.category.name }}</td>
+                <td>{{ category_mcc.name }}</td>
+                <td>
+                    <div class="d-flex justify-content-end">
+                        <a href="{{ path('admin_category_mcc_update', {'id' : category_mcc.id}) }}" class="btn btn-secondary btn-sm text-uppercase text-white me-2"><i class="fal fa-pencil-alt"></i></a>
+                        <form method="post" action="{{ path('admin_category_mcc_delete', {'id' : category_mcc.id}) }}" onsubmit="return confirm('Вы уверенны что хотите удалить mcc-код?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ category_mcc.id) }}">
+                            <button class="btn btn-danger btn-sm text-uppercase text-white"><i class="fal fa-trash-alt"></i></button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

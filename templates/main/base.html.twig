@@ -38,7 +38,7 @@
             <a href="/" class="logo">Loo<b>Cash</b></a>
         </div>
 
-        <nav class="sidenav__menu">
+        <nav class="sidenav__menu d-flex flex-column">
             <div class="sidenav__item">
                 <a href="/"><i class="fal fa-tachometer-alt-fastest"></i><span>Главная</span></a>
             </div>
@@ -56,6 +56,9 @@
             </div>
             <div class="sidenav__item">
                 <a href="{{ path('user_settings') }}"><i class="fal fa-cog"></i><span>Настройки</span></a>
+            </div>
+            <div class="sidenav__item border-top">
+                <a href="{{ path('admin_category') }}"><i class="fal fa-cog"></i><span>Категории</span></a>
             </div>
         </nav>
     </div>

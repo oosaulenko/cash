@@ -7,6 +7,7 @@ namespace App\Controller\Main;
 use App\Entity\Card;
 use App\Entity\Transaction;
 use App\Form\CardType;
+use App\Form\CategoryType;
 use App\Repository\CardRepositoryInterface;
 use App\Repository\UserMonobankTokenRepositoryInterface;
 use Carbon\Carbon;
@@ -176,6 +177,15 @@ class CardController extends BaseController {
                 $em->flush();
 
                 foreach($transactions as $new_transaction){
+                    $category = $em->getRepository(CategoryType::class)->createQueryBuilder('c')
+                        ->where('c.mcc LIKE :mcc')
+                        ->setParameter('mcc', '%'.$new_transaction->mcc().'%')
+                        ->getQuery()
+                        ->getResult()
+                    ;
+
+                    dump($category);
+
                     $transaction = new Transaction();
                     $transaction->setCard($card);
                     $transaction->setCategory(0);

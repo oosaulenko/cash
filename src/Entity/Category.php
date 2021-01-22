@@ -40,18 +40,24 @@ class Category
     private $icon;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $priority;
-
-    /**
      * @ORM\OneToMany(targetEntity=Transaction::class, mappedBy="category")
      */
     private $transactions;
 
+    /**
+     * @ORM\OneToMany(targetEntity=CategoryMcc::class, mappedBy="category")
+     */
+    private $categoryMccs;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $priority;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
+        $this->categoryMccs = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -107,18 +113,6 @@ class Category
         return $this;
     }
 
-    public function getPriority(): ?string
-    {
-        return $this->priority;
-    }
-
-    public function setPriority(?string $priority): self
-    {
-        $this->priority = $priority;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Transaction[]
      */
@@ -145,6 +139,48 @@ class Category
                 $transaction->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|CategoryMcc[]
+     */
+    public function getCategoryMccs(): Collection
+    {
+        return $this->categoryMccs;
+    }
+
+    public function addCategoryMcc(CategoryMcc $categoryMcc): self
+    {
+        if (!$this->categoryMccs->contains($categoryMcc)) {
+            $this->categoryMccs[] = $categoryMcc;
+            $categoryMcc->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategoryMcc(CategoryMcc $categoryMcc): self
+    {
+        if ($this->categoryMccs->removeElement($categoryMcc)) {
+            // set the owning side to null (unless already changed)
+            if ($categoryMcc->getCategory() === $this) {
+                $categoryMcc->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPriority(): ?int
+    {
+        return $this->priority;
+    }
+
+    public function setPriority(?int $priority): self
+    {
+        $this->priority = $priority;
 
         return $this;
     }

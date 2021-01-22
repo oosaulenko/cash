@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210118212431 extends AbstractMigration
+final class Version20210119125555 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -20,12 +20,13 @@ final class Version20210118212431 extends AbstractMigration
     public function up(Schema $schema) : void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE transaction ADD time INT NOT NULL');
+        $this->addSql('CREATE TABLE category_mcc (id INT AUTO_INCREMENT NOT NULL, category_id INT NOT NULL, name VARCHAR(255) NOT NULL, code INT NOT NULL, INDEX IDX_E724BD12469DE2 (category_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('ALTER TABLE category_mcc ADD CONSTRAINT FK_E724BD12469DE2 FOREIGN KEY (category_id) REFERENCES category (id)');
     }
 
     public function down(Schema $schema) : void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE transaction DROP time');
+        $this->addSql('DROP TABLE category_mcc');
     }
 }
