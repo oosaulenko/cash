@@ -2,8 +2,13 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\CategoryMcc;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\OptimisticLockException;
+use Doctrine\ORM\ORMException;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -12,11 +17,17 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method CategoryMcc[]    findAll()
  * @method CategoryMcc[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class CategoryMccRepository extends ServiceEntityRepository
-{
-    public function __construct(ManagerRegistry $registry)
-    {
+class CategoryMccRepository extends ServiceEntityRepository implements CategoryMccRepositoryInterface {
+
+    /**
+     * @var EntityManagerInterface
+     */
+    private $entityManager;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager) {
         parent::__construct($registry, CategoryMcc::class);
+
+        $this->entityManager = $entityManager;
     }
 
     // /**
@@ -47,4 +58,30 @@ class CategoryMccRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param $code
+     * @return CategoryMcc
+     */
+    public function findByCode($code): ?CategoryMcc {
+        return parent::findOneBy([
+            'code' => $code
+        ]);
+    }
+
+    /**
+     * @param $code
+     * @param $name
+     * @param $category
+     */
+    public function createMccCode($code, $name, $category) {
+        $categoryMcc = new CategoryMcc();
+
+        $categoryMcc->setName($name);
+        $categoryMcc->setCode($code);
+        $categoryMcc->setCategory($category);
+
+        $this->entityManager->persist($categoryMcc);
+        $this->entityManager->flush();
+    }
 }

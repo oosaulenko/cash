@@ -54,6 +54,11 @@ class Category
      */
     private $priority;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDefault;
+
     public function __construct()
     {
         $this->transactions = new ArrayCollection();
@@ -181,6 +186,18 @@ class Category
     public function setPriority(?int $priority): self
     {
         $this->priority = $priority;
+
+        return $this;
+    }
+
+    public function getIsDefault(): ?bool
+    {
+        return $this->isDefault;
+    }
+
+    public function setIsDefault(?bool $isDefault): self
+    {
+        $this->isDefault = $isDefault;
 
         return $this;
     }

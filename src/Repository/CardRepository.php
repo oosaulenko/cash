@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Card;
+use App\Entity\Transaction;
 use Carbon\Carbon;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -34,40 +35,35 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
      */
     private $user;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, TokenStorageInterface $user) {
+    /**
+     * @var UserMonobankTokenRepositoryInterface
+     */
+    private $userMonobankTokenRepository;
+
+    /**
+     * @var CategoryMccRepositoryInterface
+     */
+    private $categoryMccRepository;
+
+    /**
+     * @var CategoryRepositoryInterface
+     */
+    private $categoryRepository;
+
+    /**
+     * @var TransactionRepositoryInterface
+     */
+    private $transactionRepository;
+
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, TokenStorageInterface $user, UserMonobankTokenRepositoryInterface $userMonobankTokenRepository, CategoryMccRepositoryInterface $categoryMccRepository, CategoryRepositoryInterface $categoryRepository, TransactionRepositoryInterface $transactionRepository) {
         parent::__construct($registry, Card::class);
         $this->entityManager = $entityManager;
         $this->user = $user;
+        $this->userMonobankTokenRepository = $userMonobankTokenRepository;
+        $this->categoryMccRepository = $categoryMccRepository;
+        $this->categoryRepository = $categoryRepository;
+        $this->transactionRepository = $transactionRepository;
     }
-
-    // /**
-    //  * @return Card[] Returns an array of Card objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Card
-    {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     /**
      * @param int $cardId
@@ -170,9 +166,69 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
         } catch(MonobankException $e) {
             return $e->getMessage();
         } catch(TooManyRequestsException $e) {
-            return ['code' => 521, 'message' => 'Большое количество запросов', 'test' => $e->getCode()];
+            return [
+                'code'    => 521,
+                'message' => 'Большое количество запросов',
+                'test'    => $e->getCode()
+            ];
         } catch(UnknownTokenException $e) {
             return $e->getMessage();
         }
+    }
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function getCardsMonobank($user): array {
+        return parent::findBy([
+            'user'   => $user,
+            'status' => 1,
+            'bank'   => 'Monobank'
+        ], ['time_update' => 'ASC']);
+    }
+
+    /**
+     * @param $user
+     * @return mixed|void
+     */
+    public function updateMonobankTransactions($user) {
+        $cards = $this->getCardsMonobank($user);
+
+        foreach($cards as $card) {
+            $from = Carbon::createFromTimestamp($card->getTimeUpdate());
+            $to = Carbon::createFromTimestamp($card->getTimeUpdate())->addDays(30);
+            $transactions = $this->getCardTransactions($this->userMonobankTokenRepository->getTokenID($user), $card->getKeyCard(), $from, $to);
+
+            dump(count($transactions));
+
+            if(empty($transactions['code'])) {
+                $this->updateTime($card, $to->getTimestamp());
+
+                foreach($transactions as $transaction) {
+                    $checkTransaction = $this->entityManager->getRepository(Transaction::class)->findOneBy([
+                        'code' => $transaction->id()
+                    ]);
+
+                    if(empty($checkTransaction)) {
+                        $this->transactionRepository->create($transaction, $card);
+                    }
+                }
+            }
+        }
+
+    }
+
+    /**
+     * @param Card $card
+     * @param int $time
+     * @return Card
+     */
+    public function updateTime(Card $card, int $time): Card {
+        $card->setTimeUpdate($time);
+        $this->entityManager->persist($card);
+        $this->entityManager->flush();
+
+        return $card;
     }
 }

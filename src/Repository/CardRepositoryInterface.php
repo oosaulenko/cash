@@ -4,6 +4,8 @@
 namespace App\Repository;
 
 
+use App\Entity\Card;
+
 interface CardRepositoryInterface {
 
     /**
@@ -17,6 +19,12 @@ interface CardRepositoryInterface {
      * @return array
      */
     public function getCards($user): array;
+
+    /**
+     * @param $user
+     * @return array
+     */
+    public function getCardsMonobank($user): array;
 
     /**
      * @param $token
@@ -38,5 +46,19 @@ interface CardRepositoryInterface {
      * @return mixed
      */
     public function getCardTransactions($token, $keyCard, $from, $to);
+
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function updateMonobankTransactions($user);
+
+    /**
+     * @param Card $card
+     * @param $time
+     * @return Card
+     */
+    public function updateTime(Card $card, int $time): Card;
 
 }

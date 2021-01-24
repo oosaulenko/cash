@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -79,6 +80,13 @@ class CategoryType extends AbstractType
                 'attr' => [
                     'class' => 'form-control-lg',
                 ]
+            ])
+            ->add('isDefault', CheckboxType::class, [
+                'row_attr' => [
+                    'class' => 'form-group mb-4 form-switch'
+                ],
+                'label'    => 'По умолчанию',
+                'required' => false,
             ])
             ->add('save', SubmitType::class, [
                 'row_attr' => [
