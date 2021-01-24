@@ -60,7 +60,7 @@ class Transaction
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="transactions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $category;
 
