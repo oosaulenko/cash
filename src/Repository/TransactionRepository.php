@@ -33,44 +33,25 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
      */
     private $categoryMccRepository;
 
+    /**
+     * @var CardRepositoryInterface
+     */
+    private $cardRepository;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, CategoryRepositoryInterface $categoryRepository, CategoryMccRepositoryInterface $categoryMccRepository)
+
+    public function __construct(ManagerRegistry $registry,
+                                EntityManagerInterface $entityManager,
+                                CategoryRepositoryInterface $categoryRepository,
+                                CategoryMccRepositoryInterface $categoryMccRepository
+    )
     {
         parent::__construct($registry, Transaction::class);
 
         $this->entityManager = $entityManager;
         $this->categoryRepository = $categoryRepository;
         $this->categoryMccRepository = $categoryMccRepository;
+//        $this->cardRepository = $cardRepository;
     }
-
-    // /**
-    //  * @return Transaction[] Returns an array of Transaction objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Transaction
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     /**
      * @param Statement $statement
@@ -112,5 +93,20 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         }
 
         return $category;
+    }
+
+    public function getTransactions($user)
+    {
+        $cards = $this->cardRepository->getCards($user);
+
+//        $cards = $this->cardRepository->getCards($user);
+//
+//        $qb = $this->entityManager->createQueryBuilder()
+//            ->where('card IN (:cards)')
+//            ->setParameter('cards', $cards);
+//
+//        $query = $qb->getQuery();
+//
+//        return $query->execute();
     }
 }

@@ -1,5 +1,8 @@
 name: cash
 recipe: symfony
+proxy:
+  mailhog:
+    - mail.cash.lndo.site
 config:
   webroot: public
   php: '7.4'
@@ -12,3 +15,8 @@ services:
   myservice:
     type: mysql
     portforward: 53600
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+    portforward: 1028

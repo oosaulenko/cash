@@ -55,7 +55,14 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
      */
     private $transactionRepository;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, TokenStorageInterface $user, UserMonobankTokenRepositoryInterface $userMonobankTokenRepository, CategoryMccRepositoryInterface $categoryMccRepository, CategoryRepositoryInterface $categoryRepository, TransactionRepositoryInterface $transactionRepository) {
+    public function __construct(ManagerRegistry $registry,
+                                EntityManagerInterface $entityManager,
+                                TokenStorageInterface $user,
+                                UserMonobankTokenRepositoryInterface $userMonobankTokenRepository,
+                                CategoryMccRepositoryInterface $categoryMccRepository,
+                                CategoryRepositoryInterface $categoryRepository,
+                                TransactionRepositoryInterface $transactionRepository
+    ) {
         parent::__construct($registry, Card::class);
         $this->entityManager = $entityManager;
         $this->user = $user;

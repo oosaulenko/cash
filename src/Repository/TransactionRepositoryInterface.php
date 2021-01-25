@@ -22,4 +22,10 @@ interface TransactionRepositoryInterface {
      */
     public function findCategory(Statement $statement);
 
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getTransactions($user);
+
 }

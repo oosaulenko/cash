@@ -134,6 +134,7 @@ class CardController extends BaseController {
 
         $accounts = $this->cardRepository->getListCardMonobankAPI($this->userMonobankTokenRepository->getTokenID($this->getUser()));
 
+        // TODO: Rework block in Repository
         foreach($accounts as $account) {
             $em = $this->getDoctrine()->getManager();
             $card = new Card();
@@ -161,7 +162,7 @@ class CardController extends BaseController {
     public function addTransactionsForCards(): Response {
         $forRender = parent::renderDefault();
 
-        $monobank = $this->cardRepository->updateMonobankTransactions($this->getUser());
+        $this->cardRepository->updateMonobankTransactions($this->getUser());
 
         return $this->render('main/card/transactions.html.twig', $forRender);
     }
@@ -181,16 +182,6 @@ class CardController extends BaseController {
         ]);
 
         $forRender['title'] = 'Транзакции по карте ' . $card->getName();
-
-
-//        $transactions = $this->cardRepository->getCardTransactions($this->userMonobankTokenRepository->getTokenID($this->getUser()), $card->getKeyCard());
-//
-//        if(is_string($transactions)) {
-//            $this->addFlash('danger', $transactions);
-//            $forRender['transactions'] = '';
-//        } else {
-//            $forRender['transactions'] = $transactions;
-//        }
 
         return $this->redirectToRoute('cards');
 
