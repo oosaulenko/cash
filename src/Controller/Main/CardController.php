@@ -5,8 +5,12 @@ namespace App\Controller\Main;
 
 
 use App\Entity\Card;
+use App\Entity\Category;
+use App\Entity\CategoryMcc;
 use App\Entity\Transaction;
 use App\Form\CardType;
+use App\Form\CategoryMccType;
+use App\Form\CategoryType;
 use App\Repository\CardRepositoryInterface;
 use App\Repository\UserMonobankTokenRepositoryInterface;
 use Carbon\Carbon;
@@ -157,54 +161,7 @@ class CardController extends BaseController {
     public function addTransactionsForCards(): Response {
         $forRender = parent::renderDefault();
 
-        $em = $this->getDoctrine()->getManager();
-
-        $cards = $em->getRepository(Card::class)->findBy(
-            ['user' => $this->getUser(), 'status' => 1, 'bank' => 'Monobank'],
-            ['time_update' => 'ASC']
-        );
-
-        foreach($cards as $card) {
-            $from = Carbon::createFromTimestamp($card->getTimeUpdate());
-            $to = Carbon::createFromTimestamp($card->getTimeUpdate())->addDays(30);
-
-            $transactions = $this->cardRepository->getCardTransactions($this->userMonobankTokenRepository->getTokenID($this->getUser()), $card->getKeyCard(), $from, $to);
-
-            if(empty($transactions['code'])) {
-                $card->setTimeUpdate($to->getTimestamp());
-                $em->persist($card);
-                $em->flush();
-
-                foreach($transactions as $new_transaction){
-                    $transaction = new Transaction();
-                    $transaction->setCard($card);
-                    $transaction->setCategory(0);
-                    $transaction->setCode(rand());
-                    $transaction->setDescription($new_transaction->description());
-                    $transaction->setMcc($new_transaction->mcc());
-                    $transaction->setAmount($new_transaction->amount() / 100);
-                    $transaction->setCommission($new_transaction->commissionRate() / 100);
-                    $transaction->setCashback($new_transaction->cashbackAmount() / 100);
-                    $transaction->setTime($new_transaction->time());
-
-                    $em->persist($transaction);
-                    $em->flush();
-                }
-            }
-
-            dump($transactions);
-        }
-
-        $forRender['cards'] = $cards;
-
-//        $transactions = $this->cardRepository->getCardTransactions($this->userMonobankTokenRepository->getTokenID($this->getUser()), $card->getKeyCard());
-
-//        if(is_string($transactions)) {
-//            $this->addFlash('danger', $transactions);
-//            $forRender['transactions'] = '';
-//        } else {
-//            $forRender['transactions'] = $transactions;
-//        }
+        $monobank = $this->cardRepository->updateMonobankTransactions($this->getUser());
 
         return $this->render('main/card/transactions.html.twig', $forRender);
     }
