@@ -97,13 +97,11 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
     public function getTransactions($cards)
     {
-
-//        dump($cards);
-//
-//        $qb = $this->entityManager->createQueryBuilder()->where('card IN (:cards)')->setParameter('cards', $cards);
-//
-//        $query = $qb->getQuery();
-//
-//        return $query->execute();
+        return $this->createQueryBuilder('t')
+            ->where('t.card IN (:cards)')
+            ->setParameter('cards', $cards)
+            ->getQuery()
+            ->execute()
+            ;
     }
 }

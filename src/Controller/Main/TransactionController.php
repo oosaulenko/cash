@@ -34,10 +34,7 @@ class TransactionController extends BaseController {
         $forRender['title'] = 'Транзакции';
 
         $cards = $this->cardRepository->getCardsID($this->getUser());
-
-        dump($cards);
-
-//        dump($this->transactionRepository->getTransactions($cards));
+        $forRender['transactions'] = $this->transactionRepository->getTransactions($cards);
 
         return $this->render('main/transaction/index.html.twig', $forRender);
     }
