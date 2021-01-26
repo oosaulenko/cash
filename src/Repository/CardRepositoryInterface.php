@@ -24,6 +24,12 @@ interface CardRepositoryInterface {
      * @param $user
      * @return array
      */
+    public function getCardsID($user): array;
+
+    /**
+     * @param $user
+     * @return array
+     */
     public function getCardsMonobank($user): array;
 
     /**

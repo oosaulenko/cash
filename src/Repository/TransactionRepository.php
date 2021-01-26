@@ -33,10 +33,10 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
      */
     private $categoryMccRepository;
 
-    /**
-     * @var CardRepositoryInterface
-     */
-    private $cardRepository;
+//    /**
+//     * @var CardRepositoryInterface
+//     */
+//    private $cardRepository;
 
 
     public function __construct(ManagerRegistry $registry,
@@ -95,15 +95,12 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         return $category;
     }
 
-    public function getTransactions($user)
+    public function getTransactions($cards)
     {
-        $cards = $this->cardRepository->getCards($user);
 
-//        $cards = $this->cardRepository->getCards($user);
+//        dump($cards);
 //
-//        $qb = $this->entityManager->createQueryBuilder()
-//            ->where('card IN (:cards)')
-//            ->setParameter('cards', $cards);
+//        $qb = $this->entityManager->createQueryBuilder()->where('card IN (:cards)')->setParameter('cards', $cards);
 //
 //        $query = $qb->getQuery();
 //

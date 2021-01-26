@@ -4,6 +4,7 @@
 namespace App\Controller\Main;
 
 
+use App\Repository\CardRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,8 +16,14 @@ class TransactionController extends BaseController {
      */
     private $transactionRepository;
 
-    public function __construct(TransactionRepositoryInterface $transactionRepository) {
+    /**
+     * @var CardRepositoryInterface
+     */
+    private $cardRepository;
+
+    public function __construct(TransactionRepositoryInterface $transactionRepository, CardRepositoryInterface $cardRepository) {
         $this->transactionRepository = $transactionRepository;
+        $this->cardRepository = $cardRepository;
     }
 
     /**
@@ -26,7 +33,11 @@ class TransactionController extends BaseController {
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Транзакции';
 
-//        dump($this->transactionRepository->getTransactions($this->getUser()));
+        $cards = $this->cardRepository->getCardsID($this->getUser());
+
+        dump($cards);
+
+//        dump($this->transactionRepository->getTransactions($cards));
 
         return $this->render('main/transaction/index.html.twig', $forRender);
     }

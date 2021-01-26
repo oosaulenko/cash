@@ -23,9 +23,9 @@ interface TransactionRepositoryInterface {
     public function findCategory(Statement $statement);
 
     /**
-     * @param $user
+     * @param $cards
      * @return mixed
      */
-    public function getTransactions($user);
+    public function getTransactions($cards);
 
 }

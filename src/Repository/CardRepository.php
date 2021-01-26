@@ -238,4 +238,17 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
 
         return $card;
     }
+
+    public function getCardsID($user): array
+    {
+
+        //        $query = $qb->execute();
+//        $query = $qb->getParameters();
+        return $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->where('c.user = (:user)')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
 }
