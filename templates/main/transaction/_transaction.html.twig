@@ -1,5 +1,17 @@
 {% for transaction in transactions %}
     <div class="transaction">
-        {{ transaction.description }}
+        <div class="transaction__inner d-flex align-items-center">
+            <div class="transaction__description">{{ transaction.description }}</div>
+            <div class="transaction__bank_card text-muted fs-6">{{ transaction.card.name }}</div>
+
+            <div class="transaction__balance_box text-end">
+                <div class="transaction__amount">
+                    <span class="value">₴</span>
+                    <span class="name">{{ transaction.amount }}</span>
+                </div>
+                <div class="transaction__date text-muted fs-6">{{ transaction.time }}</div>
+            </div>
+        </div>
+
     </div>
 {% endfor %}

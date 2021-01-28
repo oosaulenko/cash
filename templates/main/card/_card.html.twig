@@ -1,9 +1,8 @@
 {% for card in cards %}
     <div class="bank_card border-bottom pt-2 pb-2 {% if card.status == 0 %}disabled{% endif %}">
         <div class="bank_card__inner d-flex align-items-center">
-            <div class="bank_card__type me-4"><span
-                        class="bank_card__icon d-flex align-items-center justify-content-center">{{ include('main/card/field/_type.html.twig', {'type' : card.type}) }}</span>
-            </div>
+            <div class="bank_card__type me-4">
+                <span class="bank_card__icon d-flex align-items-center justify-content-center">{{ include('main/card/field/_type.html.twig', {'type' : card.type}) }}</span></div>
             <div class="bank_card__name_box me-auto">
                 <div class="bank_card__name">{{ card.name }}</div>
                 <div class="bank_card__bank text-muted fs-6">{{ card.bank }}</div>
