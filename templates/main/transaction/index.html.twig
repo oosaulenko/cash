@@ -3,9 +3,6 @@
 {% block body %}
     {% if transactions %}
         <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between">
-                Транзакции
-            </div>
             <div class="card-body">
                 <div class="card-content">
                     {{ include('main/transaction/_transaction.html.twig', {'transactions' : transactions}) }}

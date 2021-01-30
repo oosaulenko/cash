@@ -7,34 +7,31 @@
     <link rel="icon" type="image/png" href="/favicon.png"/>
     {% block stylesheets %}
         <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
-              rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700&display=swap" rel="stylesheet">
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
 <body class="d-flex flex-column min-vh-100">
 {% if app.user %}
-    <header class="header bg-white d-flex align-items-center border-bottom">
+    <header class="header d-flex align-items-center">
         <div class="container-fluid">
 
-            <div class="row justify-content-between w-100">
-                <div class="col header__menu">
-                    <div class="menu-icon" id="sideNavButton">
-                        <span></span><span></span><span></span></div>
-                    <span>{{ title }}</span>
-                </div>
-
-                <div class="col header__account d-flex justify-content-end align-items-center">
-                    <div class="header__account_icon me-3 border border-2 rounded-circle text-center align-items-center">{{ random(['⛷', '🏋', '🎿', '🏄', '🏂', '🏇', '🚴', '⚽', '🎾', '🏀', '🏈', '🏌']) }}</div>
-                    <div class="header__account_name"><a href="{{ path('app_logout') }}" class="text-dark">{{ app.user.username }}</a></div>
+            <div class="ps-5 pe-5 pt-5">
+                <div class="row justify-content-between w-100">
+                    <div class="col header__menu">
+                        <h1>{{ title }}</h1>
+                    </div>
                 </div>
             </div>
         </div>
     </header><!-- .site-navigation -->
 
+    <div class="menu-icon" id="sideNavButton">
+        <span></span><span></span><span></span></div>
+
 
     <div class="sidenav bg-white">
-        <div class="navbar-brand text-center border-bottom">
+        <div class="navbar-brand text-center mb-4 mt-4">
             <a href="/" class="logo">Loo<b>Cash</b></a>
         </div>
 
@@ -61,25 +58,30 @@
                 <a href="{{ path('admin_category') }}"><i class="fal fa-cog"></i><span>Категории</span></a>
             </div>
         </nav>
+
+        <div class="header__account d-flex justify-content-end align-items-center">
+            <div class="header__account_icon me-3 border border-2 rounded-circle text-center align-items-center">{{ random(['⛷', '🏋', '🎿', '🏄', '🏂', '🏇', '🚴', '⚽', '🎾', '🏀', '🏈', '🏌']) }}</div>
+            <div class="header__account_name"><a href="{{ path('app_logout') }}"
+                                                 class="text-dark">{{ app.user.username }}</a></div>
+        </div>
+
+        <div class="footer">
+            <div class="text-muted">
+                <div class="footer__copyright">All rights reserved</div>
+                <div class="text-end footer__site">&copy; 2021 “LooCash”</div>
+            </div>
+        </div>
     </div>
 {% endif %}
 
 <div class="container-fluid">
-    <div class="page-block mt-4 ps-3 pe-3">
+    <div class="page-block mt-5 ps-5 pe-5">
         {{ include('main/_alerts.html.twig') }}
 
         {% block body %}{% endblock %}
     </div>
 </div>
 
-<footer class="footer bg-white p-4 mt-auto">
-    <div class="container">
-        <div class="row align-items-center text-muted">
-            <div class="col footer__copyright">All rights reserved</div>
-            <div class="col text-end footer__site">&copy; 2021 “LooCash”</div>
-        </div>
-    </div>
-</footer>
 {% block javascripts %}
     {{ encore_entry_script_tags('app') }}
 {% endblock %}
