@@ -135,15 +135,16 @@ $enable-important-utilities:  true;
 // You can add more entries to the $spacers map, should you need more variation.
 
 $spacer: 1rem;
-//$spacers: (
-//        0: 0,
-//        1: $spacer / 4,
-//        2: $spacer / 2,
-//        3: $spacer,
-//        4: $spacer * 1.5,
-//        5: $spacer * 3,
-//);
-//
+$spacers: (
+        0: 0,
+        1: $spacer / 4,
+        2: $spacer / 2,
+        3: $spacer,
+        4: $spacer * 1.5,
+        5: $spacer * 3,
+        6: $spacer * 3.75
+);
+
 //$negative-spacers: if($enable-negative-margins, negativify-map($spacers), null);
 
 // Position

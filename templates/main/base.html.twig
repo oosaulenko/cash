@@ -26,16 +26,18 @@
         </div>
     </header><!-- .site-navigation -->
 
-    <div class="menu-icon" id="sideNavButton">
-        <span></span><span></span><span></span></div>
+    <div class="sidenav bg-white d-flex flex-column">
 
+        <div class="menu-icon" id="sideNavButton"><i class="fal fa-angle-right"></i></div>
 
-    <div class="sidenav bg-white">
-        <div class="navbar-brand text-center mb-4 mt-4">
-            <a href="/" class="logo">Loo<b>Cash</b></a>
+        <div class="account d-flex align-items-center mt-5 mb-6">
+            <div class="account__icon border border-2 rounded-circle text-center d-flex align-items-center justify-content-center">
+                {{ random(['⛷', '🏋', '🎿', '🏄', '🏂', '🏇', '🚴', '⚽', '🎾', '🏀', '🏈', '🏌']) }}
+            </div>
+            <div class="account__name fs-3">Oleg O.</div>
         </div>
 
-        <nav class="sidenav__menu d-flex flex-column">
+        <nav class="sidenav__menu d-flex flex-column mb-auto">
             <div class="sidenav__item">
                 <a href="/"><i class="fal fa-tachometer-alt-fastest"></i><span>Главная</span></a>
             </div>
@@ -54,22 +56,14 @@
             <div class="sidenav__item">
                 <a href="{{ path('user_settings') }}"><i class="fal fa-cog"></i><span>Настройки</span></a>
             </div>
-            <div class="sidenav__item border-top">
-                <a href="{{ path('admin_category') }}"><i class="fal fa-cog"></i><span>Категории</span></a>
+            <div class="sidenav__item">
+                <a href="{{ path('admin_category') }}"><i class="fal fa-tools"></i><span>Категории</span></a>
             </div>
         </nav>
 
-        <div class="header__account d-flex justify-content-end align-items-center">
-            <div class="header__account_icon me-3 border border-2 rounded-circle text-center align-items-center">{{ random(['⛷', '🏋', '🎿', '🏄', '🏂', '🏇', '🚴', '⚽', '🎾', '🏀', '🏈', '🏌']) }}</div>
-            <div class="header__account_name"><a href="{{ path('app_logout') }}"
-                                                 class="text-dark">{{ app.user.username }}</a></div>
-        </div>
-
-        <div class="footer">
-            <div class="text-muted">
-                <div class="footer__copyright">All rights reserved</div>
-                <div class="text-end footer__site">&copy; 2021 “LooCash”</div>
-            </div>
+        <div class="footer p-4 pb-5">
+            <div class="footer__logo fw-bold">LooCash.</div>
+            <div class="footer__copyright text-muted">2021 All rights reserved</div>
         </div>
     </div>
 {% endif %}

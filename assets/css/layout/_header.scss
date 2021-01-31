@@ -1,6 +1,5 @@
 // TODO Remove line-height
 .header {
-  height: 64px;
 
   &__menu {
     display: flex;
@@ -14,40 +13,45 @@
       font-weight: 400;
     }
   }
-
-  // TODO Added block info account
-  &__account {
-
-    &_icon {
-      width: 40px;
-      height: 40px;
-      font-size: 20px;
-      line-height: 35px;
-    }
-
-    &_name {
-
-    }
-
-  }
 }
 
 .sidenav {
-  width: 240px;
+  width: 70px;
   height: 100vh;
   position: fixed;
-  left: -250px;
+  left: 0;
   top: 0;
   z-index: 5000;
   border-right: 1px solid $gray-300;
   transition: $transition-base;
 
-  &.active {
-    left: 0;
+  .menu-icon {
+    position: absolute;
+    top: 130px;
+    right: 0;
   }
 
   .navbar-brand {
     width: 100%;
+  }
+
+  .footer, .account__name {
+    transition: $transition-base;
+    opacity: 0;
+    visibility: hidden;
+  }
+
+  .account {
+    padding-left: 12px;
+    padding-right: 12px;
+
+    &__icon {
+      margin-right: 0;
+    }
+
+    &__name {
+      width: 0;
+    }
   }
 
   &__menu {
@@ -58,7 +62,7 @@
     a {
       color: $dark;
       letter-spacing: 0.3px;
-      padding: 23px 25px;
+      padding: 23px 24px;
       width: 100%;
       display: flex;
       align-items: center;
@@ -74,7 +78,9 @@
       }
 
       span {
-
+        transition: $transition-base;
+        opacity: 0;
+        visibility: hidden;
       }
     }
 
@@ -87,6 +93,40 @@
           color: inherit;
         }
       }
+    }
+  }
+
+  &.active {
+    left: 0;
+    width: 240px;
+
+    .account {
+      padding-left: 24px;
+      padding-right: 24px;
+
+      &__icon {
+        margin-right: 16px;
+      }
+
+      &__name {
+        opacity: 1;
+        visibility: initial;
+        width: auto;
+      }
+    }
+
+    .sidenav__item {
+      a {
+        span {
+          opacity: 1;
+          visibility: initial;
+        }
+      }
+    }
+
+    .footer {
+      opacity: 1;
+      visibility: initial;
     }
   }
 }

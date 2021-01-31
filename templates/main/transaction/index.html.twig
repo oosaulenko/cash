@@ -2,12 +2,44 @@
 
 {% block body %}
     {% if transactions %}
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="card-content">
-                    {{ include('main/transaction/_transaction.html.twig', {'transactions' : transactions}) }}
+
+        <div class="income_expense d-flex align-items-center mb-5">
+            <div class="income_expense__income d-flex align-items-center me-5">
+                <div class="income_expense__icon me-3">{{ include('components/_inex.html.twig', {'value' : 1, 'size': 'lg'}) }}</div>
+                <div class="income_expense__name me-3 fs-6 text-muted">Доходы</div>
+                <div class="income_expense__value fw-bold">{{ sumIncome }}</div>
+
+            </div>
+            <div class="income_expense__expense d-flex align-items-center">
+                <div class="income_expense__icon me-3">{{ include('components/_inex.html.twig', {'value' : 0, 'size': 'lg'}) }}</div>
+                <div class="income_expense__name me-3 fs-6 text-muted">Расходы</div>
+                <div class="income_expense__value fw-bold">{{ sumExpense }}</div>
+            </div>
+        </div>
+
+        {{ include('main/transaction/_transaction.html.twig', {'transactions' : transactions}) }}
+
+        <div class="filter bg-dark text-muted pt-5 ps-4 pe-4 d-none">
+            <h3 class="filter__title mb-5">Фильтр</h3>
+            {{ form_start(filterForm) }}
+            <div class="filter__item mb-4">
+                <h4 class="filter__title">Тип</h4>
+                <div class="filter__value">
+                    {{ form_row(filterForm.typeIncome) }}
+                    {{ form_row(filterForm.typeExpense) }}
                 </div>
             </div>
+
+            <div class="filter__item mb-4">
+                <h4 class="filter__title">Сортировка</h4>
+                <div class="filter__value">
+                    {{ form_row(filterForm.sort) }}
+                </div>
+            </div>
+
+            <button class="btn btn-primary text-white">Применить</button>
+
+            {{ form_end(filterForm) }}
         </div>
     {% else %}
         <div class="empty empty_cards text-center pt-5">

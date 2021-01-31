@@ -1,5 +1,6 @@
 body {
   transition: padding-left 300ms ease 0s;
+  padding-left: 70px;
 
   &.hidden {
     overflow: hidden;

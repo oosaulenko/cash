@@ -50,7 +50,6 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         $this->entityManager = $entityManager;
         $this->categoryRepository = $categoryRepository;
         $this->categoryMccRepository = $categoryMccRepository;
-//        $this->cardRepository = $cardRepository;
     }
 
     /**
@@ -95,13 +94,40 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         return $category;
     }
 
-    public function getTransactions($cards)
+    public function getTransactions($cards, ?array $params)
     {
         return $this->createQueryBuilder('t')
             ->where('t.card IN (:cards)')
             ->setParameter('cards', $cards)
+            ->orderBy('t.time', $params['sort'])
             ->getQuery()
             ->execute()
+            ;
+    }
+
+    public function getIncome($cards, ?array $params)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.amount)')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount > 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('t.card')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function getExpense($cards, ?array $params)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.amount)')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount < 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('t.card')
+            ->getQuery()
+            ->getSingleScalarResult()
             ;
     }
 }

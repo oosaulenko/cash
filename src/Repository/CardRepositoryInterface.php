@@ -67,4 +67,10 @@ interface CardRepositoryInterface {
      */
     public function updateTime(Card $card, int $time): Card;
 
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getBalance($user);
+
 }

@@ -1,3 +1,5 @@
+const axios = require('axios');
+
 
 (function ($) {
 
@@ -11,4 +13,8 @@
         }
     });
 
+    $()
+
 })(jQuery);
+
+axios.get('')

@@ -251,4 +251,15 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
             ->getQuery()
             ->execute();
     }
+
+    public function getBalance($user)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.balance)')
+            ->where('c.user = (:user)')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
 }
