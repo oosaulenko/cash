@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\CardRepository;
+use Carbon\Carbon;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -150,6 +151,11 @@ class Card
         return $this;
     }
 
+    public function getBalanceView(): ?string
+    {
+        return number_format($this->balance, 2, '.', ' ');
+    }
+
     public function getCurrency(): ?string
     {
         return $this->currency;
@@ -216,6 +222,11 @@ class Card
         return $this;
     }
 
+    public function getStatusView(): string
+    {
+        return ($this->status) ? 'Активная' : 'Заблокированная';
+    }
+
     public function getType(): ?string
     {
         return $this->type;
@@ -250,5 +261,11 @@ class Card
         $this->time_update = $time_update;
 
         return $this;
+    }
+
+    public function getTimeUpdateView(): ?string
+    {
+
+        return Carbon::createFromTimestamp($this->time_update)->locale('ru')->isoFormat('DD MMM YYYY, HH:mm');
     }
 }

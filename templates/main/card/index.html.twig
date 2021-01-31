@@ -1,23 +1,16 @@
 {% extends 'main/base.html.twig' %}
 
+{% block header %}
+    {% if cards %}
+    <a href="{{ path('card_add') }}" class="btn btn-primary btn-lg text-white">Добавить карту</a>
+    {% endif %}
+{% endblock %}
+
+
 {% block body %}
     {% if cards %}
-        <div class="card mb-4">
-            <div class="card-header d-flex justify-content-between">
-                Счета
 
-                <a href="{{ path('card_add') }}" class="text-uppercase text-reset">
-                    <i class="far fa-plus-circle text-primary"></i>
-                    <span class="fs-6 fw-bold">Добавить карту</span>
-                </a>
-
-            </div>
-            <div class="card-body">
-                <div class="card-content">
-                    {{ include('main/card/_card.html.twig', {'cards' : cards}) }}
-                </div>
-            </div>
-        </div>
+        {{ include('main/card/_card.html.twig', {'cards' : cards}) }}
     {% else %}
         <div class="empty empty_cards text-center pt-5">
             <div class="empty__image mb-5"><img src="{{ asset('assets/main/images/not_found/card.svg') }}" alt=""></div>
@@ -25,8 +18,7 @@
             <div class="empty__actions">
                 <a href="{{ path('card_add') }}" class="btn btn-primary btn-lg text-white">Добавить карту</a>
                 {% if monobank_token %}
-                    <a href="{{ path('list_all_cards_monobank') }}" class="btn btn-secondary btn-lg text-white">Добавить
-                        карты монобанка</a>
+                    <a href="{{ path('list_all_cards_monobank') }}" class="btn btn-secondary btn-lg text-white">Добавить карты монобанка</a>
                 {% endif %}
             </div>
         </div>

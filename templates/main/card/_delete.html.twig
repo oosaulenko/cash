@@ -1,5 +1,5 @@
 <form method="post" action="{{ path('card_delete', {'id' : id}) }}" onsubmit="return confirm('Вы уверенны что хотите удалить карту?')">
     <input type="hidden" name="_method" value="DELETE">
     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ id) }}">
-    <button class="border-0 bg-transparent p-0 text-reset">Удалить</button>
+    <button class="border-0 bg-transparent p-0 text-reset"><i class="fal fa-trash-alt"></i></button>
 </form>
