@@ -46,7 +46,7 @@ class CardController extends BaseController {
             $forRender['monobank_token'] = 1;
         }
 
-        $forRender['title'] = 'Баланс';
+        $forRender['title'] = 'Банковские карты';
         $forRender['cards'] = $this->cardRepository->getCards($this->getUser());
 
         return $this->render('main/card/index.html.twig', $forRender);

@@ -211,6 +211,6 @@ class Transaction
     public function getTimeView(): ?string
     {
 
-        return Carbon::createFromTimestamp($this->time)->format('d M Y, H:i');
+        return Carbon::createFromTimestamp($this->time)->locale('ru')->isoFormat('DD MMM YYYY, HH:mm');
     }
 }
