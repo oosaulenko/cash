@@ -26,10 +26,9 @@ class HomeController extends BaseController {
             return $this->redirectToRoute('app_login');
         }
 
-//        if($this->cardRepository->getCards($this->getUser()))
-
         $forRender = parent::renderDefault();
 
+        $forRender['title'] = 'Главная';
         $forRender['cards'] = $this->cardRepository->getCards($this->getUser());
 
         return $this->render('main/index.html.twig', $forRender);

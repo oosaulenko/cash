@@ -1,0 +1,45 @@
+<div class="list-transactions">
+    {% for transaction in transactions %}
+        <div class="transaction mb-4">
+            <div class="transaction__inner d-flex align-items-center">
+                <div class="col-sm-5">
+                    <div class="d-flex align-items-center">
+                        <div class="transaction__icon icon-category me-3" style="background-color: {{ transaction.category.color }}40"><i class="{{ transaction.category.icon }}" style="color: {{ transaction.category.color }}"></i></div>
+                        <div>
+                            <div class="transaction__description fw-bold">
+                                {% if transaction.description|length > 20 %}
+                                    {{ transaction.description|slice(0, 20) ~ '...' }}
+                                {% else %}
+                                    {{ transaction.description }}
+                                {% endif %}
+                            </div>
+                            <div class="transaction__bank_card text-muted fs-6">{{ transaction.card.name }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-3">
+                    <div class="transaction__category fs-6 d-flex align-items-center">
+                        <span class="icon-color me-2" style="background-color: {{ transaction.category.color }}40"><b style="background-color: {{ transaction.category.color }}"></b></span>
+                        <span>{{ transaction.category.name }}</span>
+                    </div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="transaction__date text-muted fs-6">{{ transaction.timeView }}</div>
+                </div>
+
+                <div class="col-sm-2">
+                    <div class="transaction__balance_box text-end">
+                        <div class="transaction__amount d-flex align-items-center justify-content-end">
+                            <span class="me-2">{{ include('main/transaction/field/_inex.html.twig', {'value' : transaction.isIncome}) }}</span>
+                            <span class="value">{{ include('main/transaction/field/_currency.html.twig', {'currency' : transaction.card.currency}) }}</span>
+                            <span class="name">{{ transaction.amountView }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% endfor %}
+</div>

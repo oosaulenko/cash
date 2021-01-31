@@ -81,6 +81,19 @@ class CategoryType extends AbstractType
                     'class' => 'form-control-lg',
                 ]
             ])
+            ->add('color', TextType::class, [
+                'row_attr' => [
+                    'class' => 'form-group mb-4'
+                ],
+                'label' => 'Цвет категории',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ],
+                'attr' => [
+                    'class' => 'form-control-lg',
+                    'placeholder' => 'Цвет категории'
+                ]
+            ])
             ->add('isDefault', CheckboxType::class, [
                 'row_attr' => [
                     'class' => 'form-group mb-4 form-switch'

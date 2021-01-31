@@ -1,3 +1,14 @@
 .footer {
 
+  &__logo {
+    font-size: 20px;
+    color: $gray-700;
+    white-space: nowrap;
+  }
+
+  &__copyright {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
 }

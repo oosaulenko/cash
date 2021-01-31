@@ -55,7 +55,14 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
      */
     private $transactionRepository;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, TokenStorageInterface $user, UserMonobankTokenRepositoryInterface $userMonobankTokenRepository, CategoryMccRepositoryInterface $categoryMccRepository, CategoryRepositoryInterface $categoryRepository, TransactionRepositoryInterface $transactionRepository) {
+    public function __construct(ManagerRegistry $registry,
+                                EntityManagerInterface $entityManager,
+                                TokenStorageInterface $user,
+                                UserMonobankTokenRepositoryInterface $userMonobankTokenRepository,
+                                CategoryMccRepositoryInterface $categoryMccRepository,
+                                CategoryRepositoryInterface $categoryRepository,
+                                TransactionRepositoryInterface $transactionRepository
+    ) {
         parent::__construct($registry, Card::class);
         $this->entityManager = $entityManager;
         $this->user = $user;
@@ -230,5 +237,29 @@ class CardRepository extends ServiceEntityRepository implements CardRepositoryIn
         $this->entityManager->flush();
 
         return $card;
+    }
+
+    public function getCardsID($user): array
+    {
+
+        //        $query = $qb->execute();
+//        $query = $qb->getParameters();
+        return $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->where('c.user = (:user)')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getBalance($user)
+    {
+        return $this->createQueryBuilder('c')
+            ->select('SUM(c.balance)')
+            ->where('c.user = (:user)')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 }

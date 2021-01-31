@@ -33,8 +33,17 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
      */
     private $categoryMccRepository;
 
+//    /**
+//     * @var CardRepositoryInterface
+//     */
+//    private $cardRepository;
 
-    public function __construct(ManagerRegistry $registry, EntityManagerInterface $entityManager, CategoryRepositoryInterface $categoryRepository, CategoryMccRepositoryInterface $categoryMccRepository)
+
+    public function __construct(ManagerRegistry $registry,
+                                EntityManagerInterface $entityManager,
+                                CategoryRepositoryInterface $categoryRepository,
+                                CategoryMccRepositoryInterface $categoryMccRepository
+    )
     {
         parent::__construct($registry, Transaction::class);
 
@@ -42,35 +51,6 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         $this->categoryRepository = $categoryRepository;
         $this->categoryMccRepository = $categoryMccRepository;
     }
-
-    // /**
-    //  * @return Transaction[] Returns an array of Transaction objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Transaction
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 
     /**
      * @param Statement $statement
@@ -112,5 +92,42 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         }
 
         return $category;
+    }
+
+    public function getTransactions($cards, ?array $params)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.card IN (:cards)')
+            ->setParameter('cards', $cards)
+            ->orderBy('t.time', $params['sort'])
+            ->getQuery()
+            ->execute()
+            ;
+    }
+
+    public function getIncome($cards, ?array $params)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.amount)')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount > 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('t.card')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
+    }
+
+    public function getExpense($cards, ?array $params)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('SUM(t.amount)')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount < 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('t.card')
+            ->getQuery()
+            ->getSingleScalarResult()
+            ;
     }
 }

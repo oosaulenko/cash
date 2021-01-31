@@ -1,0 +1,12 @@
+.account {
+
+  &__icon {
+    min-width: 48px;
+    height: 48px;
+  }
+
+  &__name {
+    white-space: nowrap;
+  }
+
+}

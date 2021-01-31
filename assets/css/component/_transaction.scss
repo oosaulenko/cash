@@ -1,0 +1,26 @@
+.transaction {
+
+  &__category {
+
+    .icon-color {
+      width: 24px;
+      height: 24px;
+      background-color: rgba($dark, .05);
+      position: relative;
+      border-radius: $border-radius;
+
+      b {
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background-color: $dark;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+  }
+
+}

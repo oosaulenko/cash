@@ -24,6 +24,12 @@ interface CardRepositoryInterface {
      * @param $user
      * @return array
      */
+    public function getCardsID($user): array;
+
+    /**
+     * @param $user
+     * @return array
+     */
     public function getCardsMonobank($user): array;
 
     /**
@@ -60,5 +66,11 @@ interface CardRepositoryInterface {
      * @return Card
      */
     public function updateTime(Card $card, int $time): Card;
+
+    /**
+     * @param $user
+     * @return mixed
+     */
+    public function getBalance($user);
 
 }
