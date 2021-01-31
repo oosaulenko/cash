@@ -1,7 +1,4 @@
 {% for transaction in transactions %}
-
-    {{ dump(transaction) }}
-
     <div class="transaction mb-4">
         <div class="transaction__inner d-flex align-items-center">
             <div class="col-sm-5">
@@ -28,14 +25,15 @@
             </div>
 
             <div class="col-sm-2">
-                <div class="transaction__date text-muted fs-6">{{ transaction.time }}</div>
+                <div class="transaction__date text-muted fs-6">{{ transaction.timeView }}</div>
             </div>
 
             <div class="col-sm-2">
                 <div class="transaction__balance_box text-end">
-                    <div class="transaction__amount">
-                        <span class="value">₴</span>
-                        <span class="name">{{ transaction.amount }}</span>
+                    <div class="transaction__amount d-flex align-items-center justify-content-end">
+                        <span class="me-2">{{ include('main/transaction/field/_inex.html.twig', {'value' : transaction.isIncome}) }}</span>
+                        <span class="value">{{ include('main/transaction/field/_currency.html.twig', {'currency' : transaction.card.currency}) }}</span>
+                        <span class="name">{{ transaction.amountView }}</span>
                     </div>
                 </div>
             </div>

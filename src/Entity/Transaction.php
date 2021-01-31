@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\TransactionRepository;
+use Carbon\Carbon;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -139,11 +140,24 @@ class Transaction
         return $this->amount;
     }
 
+    public function getAmountView(): ?string
+    {
+        $amount = str_replace('-', '', $this->amount);
+        $amount = number_format($amount, 2, '.', ' ');
+
+        return $amount;
+    }
+
     public function setAmount(float $amount): self
     {
         $this->amount = $amount;
 
         return $this;
+    }
+
+    public function isIncome(): bool
+    {
+        return $this->amount >= 0;
     }
 
     public function getCommission(): ?float
@@ -192,5 +206,11 @@ class Transaction
         $this->time = $time;
 
         return $this;
+    }
+
+    public function getTimeView(): ?string
+    {
+
+        return Carbon::createFromTimestamp($this->time)->format('d M Y, H:i');
     }
 }
