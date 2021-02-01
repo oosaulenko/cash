@@ -33,10 +33,8 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
      */
     private $categoryMccRepository;
 
-//    /**
-//     * @var CardRepositoryInterface
-//     */
-//    private $cardRepository;
+
+    private $paramsTransaction;
 
 
     public function __construct(ManagerRegistry $registry,
@@ -94,18 +92,26 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         return $category;
     }
 
-    public function getTransactions($cards, ?array $params)
+    public function getTransactions($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->where('t.card IN (:cards)')
-            ->setParameter('cards', $cards)
-            ->orderBy('t.time', $params['sort'])
+            ->setParameter('cards', $cards);
+
+        if(!empty($this->paramsTransaction['sort'])) $query->orderBy('t.time', $this->paramsTransaction['sort']);
+
+        if(empty($this->paramsTransaction['typeIncome']) || empty($this->paramsTransaction['typeExpense'])){
+            if(!empty($this->paramsTransaction['typeIncome'])) $query->andWhere('t.amount >= 0');
+            if(!empty($this->paramsTransaction['typeExpense'])) $query->andWhere('t.amount < 0');
+        }
+
+        return $query
             ->getQuery()
             ->execute()
             ;
     }
 
-    public function getIncome($cards, ?array $params)
+    public function getIncome($cards)
     {
         return $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
@@ -118,7 +124,7 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ;
     }
 
-    public function getExpense($cards, ?array $params)
+    public function getExpense($cards)
     {
         return $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
@@ -129,5 +135,12 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ->getQuery()
             ->getSingleScalarResult()
             ;
+    }
+
+    public function setParams($params)
+    {
+        $this->paramsTransaction = $params;
+
+        return $this;
     }
 }

@@ -35,4 +35,21 @@ class DataService {
         return $this->transactionRepository->getTransactions($this->cardRepository->getCardsID($user), []);
     }
 
+    /**
+     * @param Request $request
+     * @return array
+     */
+    public function getFilterTransactionParams(Request $request): array
+    {
+        $filter = [];
+
+        if($request->get('filter_transaction')) {
+            if(!empty($request->get('filter_transaction')['typeIncome'])) $filter['typeIncome'] = (boolean) $request->get('filter_transaction')['typeIncome'];
+            if(!empty($request->get('filter_transaction')['typeExpense'])) $filter['typeExpense'] = (boolean) $request->get('filter_transaction')['typeExpense'];
+            if(!empty($request->get('filter_transaction')['sort'])) $filter['sort'] = $request->get('filter_transaction')['sort'];
+        }
+
+        return $filter;
+    }
+
 }

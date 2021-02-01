@@ -24,23 +24,26 @@ interface TransactionRepositoryInterface {
 
     /**
      * @param $cards
-     * @param array|null $params
      * @return mixed
      */
-    public function getTransactions($cards, ?array $params);
+    public function getTransactions($cards);
 
     /**
      * @param $cards
-     * @param array|null $params
      * @return mixed
      */
-    public function getIncome($cards, ?array $params);
+    public function getIncome($cards);
 
     /**
      * @param $cards
-     * @param array|null $params
      * @return mixed
      */
-    public function getExpense($cards, ?array $params);
+    public function getExpense($cards);
+
+    /**
+     * @param $params
+     * @return mixed
+     */
+    public function setParams($params);
 
 }

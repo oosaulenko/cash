@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+use App\Entity\Category;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -17,12 +19,10 @@ class FilterTransactionType extends AbstractType
             ->setMethod('GET')
             ->add('typeIncome', CheckboxType::class, [
                 'label' => 'Доходы',
-//                'data' => [1],
                 'required' => false
             ])
             ->add('typeExpense', CheckboxType::class, [
                 'label' => 'Расходы',
-//                'data' => [1],
                 'required' => false
             ])
             ->add('sort', ChoiceType::class, [
@@ -44,7 +44,7 @@ class FilterTransactionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'csrf_protection' => false,
         ]);
     }
 }
