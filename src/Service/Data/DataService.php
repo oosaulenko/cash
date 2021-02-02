@@ -5,6 +5,7 @@ namespace App\Service\Data;
 
 
 use App\Repository\CardRepositoryInterface;
+use App\Repository\CategoryRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,18 +22,24 @@ class DataService {
      */
     private $cardRepository;
 
+    /**
+     * @var CategoryRepositoryInterface
+     */
+    private $categoryRepository;
 
-    public function __construct(ManagerRegistry $registry, TransactionRepositoryInterface $transactionRepository, CardRepositoryInterface $cardRepository)
+
+    public function __construct(ManagerRegistry $registry, TransactionRepositoryInterface $transactionRepository, CardRepositoryInterface $cardRepository, CategoryRepositoryInterface $categoryRepository)
     {
         $this->transactionRepository = $transactionRepository;
         $this->cardRepository = $cardRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function getFilterTransaction(Request $request, $user)
     {
         $sort = $request->get('sort');
 
-        return $this->transactionRepository->getTransactions($this->cardRepository->getCardsID($user), []);
+        return $this->transactionRepository->getTransactions($this->cardRepository->getCardsID($user));
     }
 
     /**
@@ -47,9 +54,15 @@ class DataService {
             if(!empty($request->get('filter_transaction')['typeIncome'])) $filter['typeIncome'] = (boolean) $request->get('filter_transaction')['typeIncome'];
             if(!empty($request->get('filter_transaction')['typeExpense'])) $filter['typeExpense'] = (boolean) $request->get('filter_transaction')['typeExpense'];
             if(!empty($request->get('filter_transaction')['sort'])) $filter['sort'] = $request->get('filter_transaction')['sort'];
+            if(!empty($request->get('filter_transaction')['category'])) $filter['category'] = $this->categoryRepository->getCategories($request->get('filter_transaction')['category']);
         }
 
         return $filter;
+    }
+
+    public function setQueryFilterTransaction($query, $params)
+    {
+
     }
 
 }

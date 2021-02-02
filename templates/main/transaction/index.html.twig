@@ -26,9 +26,9 @@
             {{ form_start(filterForm) }}
             <div class="filter__item mb-4">
                 <h4 class="filter__title">Тип</h4>
-                <div class="filter__value">
-                    {{ form_row(filterForm.typeIncome) }}
-                    {{ form_row(filterForm.typeExpense) }}
+                <div class="filter__value d-flex align-items-center">
+                    <div class="w-100">{{ form_row(filterForm.typeIncome) }}</div>
+                    <div class="w-100">{{ form_row(filterForm.typeExpense) }}</div>
                 </div>
             </div>
 
@@ -39,14 +39,17 @@
                 </div>
             </div>
 
-{#            <div class="filter__item mb-4">#}
-{#                <h4 class="filter__title">Категория</h4>#}
-{#                <div class="filter__value">#}
-{#                    {{ form_row(filterForm.category) }}#}
-{#                </div>#}
-{#            </div>#}
+            <div class="filter__item mb-4">
+                <h4 class="filter__title">Категория</h4>
+                <div class="filter__value">
+                    {{ form_row(filterForm.category) }}
+                </div>
+            </div>
 
-            <button class="btn btn-primary text-white">Применить</button>
+            <div class="d-flex">
+                <a href="{{ path('transactions') }}" class="btn btn-secondary text-white me-2 w-100">Очистить</a>
+                <button class="btn btn-primary text-white w-100">Применить</button>
+            </div>
 
             {{ form_end(filterForm) }}
         </div>

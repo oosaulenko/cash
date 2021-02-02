@@ -38,6 +38,13 @@ class FilterTransactionType extends AbstractType
                     'По возрастанию даты' => 'ASC',
                 ]
             ])
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'expanded' => true,
+                'multiple' => true,
+                'choice_label' => 'name',
+                'label' => false,
+            ])
         ;
     }
 

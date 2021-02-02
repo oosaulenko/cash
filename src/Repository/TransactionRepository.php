@@ -98,12 +98,7 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ->where('t.card IN (:cards)')
             ->setParameter('cards', $cards);
 
-        if(!empty($this->paramsTransaction['sort'])) $query->orderBy('t.time', $this->paramsTransaction['sort']);
-
-        if(empty($this->paramsTransaction['typeIncome']) || empty($this->paramsTransaction['typeExpense'])){
-            if(!empty($this->paramsTransaction['typeIncome'])) $query->andWhere('t.amount >= 0');
-            if(!empty($this->paramsTransaction['typeExpense'])) $query->andWhere('t.amount < 0');
-        }
+        $this->setFilterParams($query);
 
         return $query
             ->getQuery()
@@ -113,12 +108,15 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
     public function getIncome($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
             ->where('t.card IN (:cards)')
-            ->andWhere('t.amount > 0')
-            ->setParameter('cards', $cards)
-            ->groupBy('t.card')
+            ->andWhere('t.amount >= 0')
+            ->setParameter('cards', $cards);
+
+        $this->setFilterParams($query);
+
+        return $query
             ->getQuery()
             ->getSingleScalarResult()
             ;
@@ -126,12 +124,15 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
     public function getExpense($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount < 0')
-            ->setParameter('cards', $cards)
-            ->groupBy('t.card')
+            ->setParameter('cards', $cards);
+
+        $this->setFilterParams($query);
+
+        return $query
             ->getQuery()
             ->getSingleScalarResult()
             ;
@@ -142,5 +143,17 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         $this->paramsTransaction = $params;
 
         return $this;
+    }
+
+    public function setFilterParams($query)
+    {
+        if(!empty($this->paramsTransaction['sort'])) $query->orderBy('t.time', $this->paramsTransaction['sort']);
+
+        if(empty($this->paramsTransaction['typeIncome']) || empty($this->paramsTransaction['typeExpense'])){
+            if(!empty($this->paramsTransaction['typeIncome'])) $query->andWhere('t.amount >= 0');
+            if(!empty($this->paramsTransaction['typeExpense'])) $query->andWhere('t.amount < 0');
+        }
+
+        if(!empty($this->paramsTransaction['category'])) $query->andWhere('t.category IN (:category)')->setParameter('category', $this->paramsTransaction['category']);
     }
 }

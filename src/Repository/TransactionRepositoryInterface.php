@@ -46,4 +46,10 @@ interface TransactionRepositoryInterface {
      */
     public function setParams($params);
 
+    /**
+     * @param $query
+     * @return mixed
+     */
+    public function setFilterParams($query);
+
 }

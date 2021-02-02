@@ -54,4 +54,13 @@ class CategoryRepository extends ServiceEntityRepository implements CategoryRepo
     public function isDefault(): object {
         return parent::findOneBy(['isDefault' => 1]);
     }
+
+    public function getCategories(array $ids)
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.id IN (:ids)')
+            ->setParameter('ids', $ids)
+            ->getQuery()
+            ->execute();
+    }
 }

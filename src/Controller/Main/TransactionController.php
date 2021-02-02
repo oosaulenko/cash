@@ -44,13 +44,14 @@ class TransactionController extends BaseController {
     {
         $forRender = parent::renderDefault();
         $forRender['title'] = 'Транзакции';
+        $forRender['body_class'] = 'active--filter';
 
         $filterParams = $this->dataService->getFilterTransactionParams($request);
         $cards = $this->cardRepository->getCardsID($this->getUser());
 
         $forRender['transactions'] = $this->transactionRepository->setParams($filterParams)->getTransactions($cards);
-        $forRender['sumIncome'] = $this->transactionRepository->getIncome($cards);
-        $forRender['sumExpense'] = $this->transactionRepository->getExpense($cards);
+        $forRender['sumIncome'] = $this->transactionRepository->setParams($filterParams)->getIncome($cards);
+        $forRender['sumExpense'] = $this->transactionRepository->setParams($filterParams)->getExpense($cards);
 
         $filterForm = $this->createForm(FilterTransactionType::class, $filterParams);
         $forRender['filterForm'] = $filterForm->createView();
