@@ -1,9 +1,62 @@
 .form-check {
-  input {
+  position: relative;
 
+  input {
+    position: absolute;
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
+    border: 0;
+    padding: 0;
+
+    &:checked {
+
+      & + label {
+        &:before{
+          background-color: $primary;
+        }
+
+        &:after {
+          opacity: 1;
+        }
+      }
+
+    }
   }
 
   label {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+    font-size: $font-size-sm;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border-radius: $border-radius-sm;
+      background-color: rgba($secondary, .7);
+      transition: $transition-base;
+      margin-right: 4px;
+    }
+
+    &:after {
+      content: '';
+      border: solid white;
+      position: absolute;
+      top: 6px;
+      transform: rotate(132deg);
+      border-width: 2px 2px 0 0;
+      width: 11px;
+      height: 6px;
+      left: 4px;
+      opacity: 0;
+      transition: $transition-base;
+    }
 
   }
 }

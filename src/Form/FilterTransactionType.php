@@ -44,6 +44,10 @@ class FilterTransactionType extends AbstractType
                 'multiple' => true,
                 'choice_label' => 'name',
                 'label' => false,
+                'choice_attr' => function($choice, $key, $value) {
+                    // adds a class like attending_yes, attending_no, etc
+                    return ['class' => 'attending_'.strtolower($key)];
+                },
             ])
         ;
     }
