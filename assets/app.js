@@ -12,8 +12,12 @@ var $ = require('jquery');
 import 'bootstrap';
 import './js/axios.min.js';
 
+import Litepicker from 'litepicker';
+
+
 const axios = require('axios').default;
 
 
 import './js/main';
+import './js/filter';
 

@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,10 +27,12 @@ class FilterTransactionType extends AbstractType
                 'required' => false
             ])
             ->add('sort', ChoiceType::class, [
+                'placeholder' => 'Выберите сортировку',
                 'row_attr' => [
                     'class' => 'form-group mb-3'
                 ],
                 'label' => false,
+                'required' => false,
                 'attr' => [
                     'class' => 'field-select form-select'
                 ],
@@ -42,12 +45,37 @@ class FilterTransactionType extends AbstractType
                 'class' => Category::class,
                 'expanded' => true,
                 'multiple' => true,
-                'choice_label' => 'name',
                 'label' => false,
-                'choice_attr' => function($choice, $key, $value) {
-                    // adds a class like attending_yes, attending_no, etc
-                    return ['class' => 'attending_'.strtolower($key)];
+                'attr' => ['class' =>'d-flex flex-wrap'],
+                'choice_label' => function ($category) {
+                    return $category->getName();
                 },
+                'choice_attr' => function($choice, $key, $value) {
+                    return [
+                        'class' => 'form-check-tag',
+                        'style' => 'background-color: '.$choice->getColor()
+                    ];
+                },
+            ])
+            ->add('dateFrom', TextType::class, [
+                'row_attr' => [
+                    'class' => 'form-group-date'
+                ],
+                'attr' => ['class' => 'form-control-date'],
+                'label' => 'От',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ]
+            ])
+            ->add('dateTo', TextType::class, [
+                'row_attr' => [
+                    'class' => 'form-group-date'
+                ],
+                'attr' => ['class' => 'form-control-date'],
+                'label' => 'До',
+                'label_attr' => [
+                    'class' => 'form-label',
+                ]
             ])
         ;
     }

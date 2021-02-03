@@ -23,9 +23,10 @@
         <div class="filter bg-dark text-muted pt-5 ps-4 pe-4">
 {#            <div class="icon-filter" id="sideFilterButton"><i class="fal fa-angle-right"></i></div>#}
             <h3 class="filter__title mb-5">Фильтр</h3>
+
             {{ form_start(filterForm) }}
             <div class="filter__item mb-4">
-                <h4 class="filter__title">Тип</h4>
+                <h5 class="filter__title">Тип</h5>
                 <div class="filter__value d-flex align-items-center">
                     <div class="w-100">{{ form_row(filterForm.typeIncome) }}</div>
                     <div class="w-100">{{ form_row(filterForm.typeExpense) }}</div>
@@ -33,16 +34,26 @@
             </div>
 
             <div class="filter__item mb-4">
-                <h4 class="filter__title">Сортировка</h4>
+                <h5 class="filter__title">Сортировка</h5>
                 <div class="filter__value">
                     {{ form_row(filterForm.sort) }}
                 </div>
             </div>
 
             <div class="filter__item mb-4">
-                <h4 class="filter__title">Категория</h4>
+                <h5 class="filter__title">Категория</h5>
                 <div class="filter__value">
                     {{ form_row(filterForm.category) }}
+                </div>
+            </div>
+
+            <div class="filter__item mb-4">
+                <h5 class="filter__title">Дата</h5>
+                <div class="filter__value">
+                    <div class="d-flex flex-column">
+                        <div class="mb-2">{{ form_row(filterForm.dateFrom) }}</div>
+                        <div class="">{{ form_row(filterForm.dateTo) }}</div>
+                    </div>
                 </div>
             </div>
 

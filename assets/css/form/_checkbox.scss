@@ -1,7 +1,7 @@
 .form-check {
   position: relative;
 
-  input {
+  .form-check-input {
     position: absolute;
     opacity: 0;
     visibility: hidden;
@@ -10,11 +10,47 @@
     margin: 0;
     border: 0;
     padding: 0;
+  }
+
+  .form-check-input:not(.form-check-tag) {
+
+    & + label {
+      position: relative;
+      display: flex;
+      align-items: center;
+      font-weight: 300;
+      font-size: $font-size-sm;
+
+      &:before {
+        content: '';
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border-radius: $border-radius-sm;
+        background-color: rgba($secondary, .7);
+        transition: $transition-base;
+        margin-right: 4px;
+      }
+
+      &:after {
+        content: '';
+        border: solid white;
+        position: absolute;
+        top: 6px;
+        transform: rotate(132deg);
+        border-width: 2px 2px 0 0;
+        width: 11px;
+        height: 6px;
+        left: 4px;
+        opacity: 0;
+        transition: $transition-base;
+      }
+    }
 
     &:checked {
 
       & + label {
-        &:before{
+        &:before {
           background-color: $primary;
         }
 
@@ -22,41 +58,28 @@
           opacity: 1;
         }
       }
-
     }
   }
 
-  label {
-    position: relative;
-    display: flex;
-    align-items: center;
-    font-weight: 300;
-    font-size: $font-size-sm;
-
-    &:before {
-      content: '';
-      display: inline-block;
-      width: 20px;
-      height: 20px;
+  .form-check-tag {
+    & + label {
       border-radius: $border-radius-sm;
       background-color: rgba($secondary, .7);
-      transition: $transition-base;
-      margin-right: 4px;
+      margin-right: 6px;
+      margin-bottom: 4px;
+      padding: 2px 6px;
+      font-size: 14px;
+      font-weight: 300;
+      cursor: pointer;
     }
 
-    &:after {
-      content: '';
-      border: solid white;
-      position: absolute;
-      top: 6px;
-      transform: rotate(132deg);
-      border-width: 2px 2px 0 0;
-      width: 11px;
-      height: 6px;
-      left: 4px;
-      opacity: 0;
-      transition: $transition-base;
-    }
+    &:checked {
 
+      & + label {
+        color: $light;
+        background-color: $primary;
+      }
+
+    }
   }
 }

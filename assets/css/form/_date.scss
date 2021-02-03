@@ -1,0 +1,33 @@
+.form-group-date {
+  display: flex;
+  align-items: center;
+  position: relative;
+
+  &:after {
+    content: '\f784';
+    font-family: 'Font Awesome 5 Pro';
+    font-weight: 400;
+    display: inline-block;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .form-label {
+    margin-bottom: 0;
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+  }
+
+  .form-control {
+    padding-left: 32px;
+  }
+
+}
+
+.form-control-date {
+
+}
