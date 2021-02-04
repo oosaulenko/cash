@@ -71,6 +71,11 @@
       font-size: 14px;
       font-weight: 300;
       cursor: pointer;
+      color: $gray-100;
+
+      &:hover {
+        background-color: rgba($secondary, .9);
+      }
     }
 
     &:checked {

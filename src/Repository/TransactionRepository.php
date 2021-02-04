@@ -155,5 +155,10 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         }
 
         if(!empty($this->paramsTransaction['category'])) $query->andWhere('t.category IN (:category)')->setParameter('category', $this->paramsTransaction['category']);
+
+        if(!empty($this->paramsTransaction['timeFrom'])) $query->andWhere('t.time >= (:timeFrom)')->setParameter('timeFrom', Carbon::parse($this->paramsTransaction['timeFrom'], 'Europe/Kiev')->startOfDay()->getTimestamp());
+        if(!empty($this->paramsTransaction['timeTo'])) $query->andWhere('t.time <= (:timeTo)')->setParameter('timeTo', Carbon::parse($this->paramsTransaction['timeTo'], 'Europe/Kiev')->endOfDay()->getTimestamp());
+
+
     }
 }

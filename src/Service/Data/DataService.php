@@ -55,7 +55,13 @@ class DataService {
             if(!empty($request->get('filter_transaction')['typeExpense'])) $filter['typeExpense'] = (boolean) $request->get('filter_transaction')['typeExpense'];
             if(!empty($request->get('filter_transaction')['sort'])) $filter['sort'] = $request->get('filter_transaction')['sort'];
             if(!empty($request->get('filter_transaction')['category'])) $filter['category'] = $this->categoryRepository->getCategories($request->get('filter_transaction')['category']);
+            if(!empty($request->get('filter_transaction')['timeFrom'])) $filter['timeFrom'] = $request->get('filter_transaction')['timeFrom'];
+            if(!empty($request->get('filter_transaction')['timeTo'])) $filter['timeTo'] = $request->get('filter_transaction')['timeTo'];
+            if(!empty($request->get('filter_transaction')['dateFrom'])) $filter['dateFrom'] = $request->get('filter_transaction')['dateFrom'];
+            if(!empty($request->get('filter_transaction')['dateTo'])) $filter['dateTo'] = $request->get('filter_transaction')['dateTo'];
         }
+
+        dump($filter);
 
         return $filter;
     }

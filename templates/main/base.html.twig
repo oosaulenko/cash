@@ -11,7 +11,7 @@
         {{ encore_entry_link_tags('app') }}
     {% endblock %}
 </head>
-<body class="d-flex flex-column min-vh-100 {% block body_class %} {{ body_class }} {% endblock %}">
+<body class="d-flex flex-column min-vh-100 {% block body_class %} {% if body_class is defined %} {{ body_class }}  {% endif %} {% endblock %}">
 {% if app.user %}
     <div class="sidenav bg-white d-flex flex-column">
 

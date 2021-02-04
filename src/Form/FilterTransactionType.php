@@ -8,6 +8,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Form\Extension\Core\Type\RangeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -61,21 +63,32 @@ class FilterTransactionType extends AbstractType
                 'row_attr' => [
                     'class' => 'form-group-date'
                 ],
-                'attr' => ['class' => 'form-control-date'],
+                'mapped' => false,
+                'attr' => ['class' => 'form-control-date dark', 'name' => ''],
                 'label' => 'От',
                 'label_attr' => [
-                    'class' => 'form-label',
+                    'class' => 'form-label text-secondary',
                 ]
             ])
+            ->add('timeFrom', HiddenType::class, [])
             ->add('dateTo', TextType::class, [
                 'row_attr' => [
                     'class' => 'form-group-date'
                 ],
-                'attr' => ['class' => 'form-control-date'],
+                'attr' => ['class' => 'form-control-date dark'],
                 'label' => 'До',
                 'label_attr' => [
-                    'class' => 'form-label',
+                    'class' => 'form-label text-secondary',
                 ]
+            ])
+            ->add('timeTo', HiddenType::class, [])
+            ->add('amountFrom', TextType::class, [
+                'attr' => ['class' => 'dark'],
+                'label' => false
+            ])
+            ->add('amountTo', TextType::class, [
+                'attr' => ['class' => 'dark'],
+                'label' => false
             ])
         ;
     }
