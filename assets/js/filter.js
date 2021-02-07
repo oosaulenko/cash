@@ -1,4 +1,3 @@
-import moment from "moment";
 import noUiSlider from 'nouislider';
 
 new Litepicker({
@@ -14,29 +13,47 @@ new Litepicker({
         "many": "дней"
     },
     minDate: '2015-01-01',
-    maxDate: '2019-06-30',
+    maxDate: '2019-08-30',
 })
     .on('selected', (date, date2) => {
-        document.getElementById('filter_transaction_timeFrom').value = date.format('YYYY-MM-DD');
-        document.getElementById('filter_transaction_timeTo').value = date2.format('YYYY-MM-DD');
-        console.log(date.format('YYYY-MM-DD'));
-        console.log(date2.format('YYYY-MM-DD'));
+        if (date) {
+            document.getElementById('filter_transaction_timeFrom').value = date.format('YYYY-MM-DD');
+        }
+        if (date2) {
+            document.getElementById('filter_transaction_timeTo').value = date2.format('YYYY-MM-DD');
+        }
     })
     .setDateRange(document.getElementById('filter_transaction_timeFrom').value, document.getElementById('filter_transaction_timeTo').value)
 ;
 
 
-
 var filterTransactionPriceRangeInput = document.getElementById('filter_transaction_priceRange');
+var filterTransactionAmountTo = document.getElementById('filter_transaction_amountTo');
+var filterTransactionAmountFrom = document.getElementById('filter_transaction_amountFrom');
+
 noUiSlider.create(filterTransactionPriceRangeInput, {
-    start: [20, 80],
+    start: [filterTransactionAmountFrom.value, filterTransactionAmountTo.value],
     connect: true,
     range: {
-        'min': 0,
-        'max': 100
+        'min': -10000,
+        'max': 10000
     }
 })
-    .on('start', function () {
-        //
+    .on('update', function (values, handle) {
+        var value = values[handle];
+
+        if (handle) {
+            filterTransactionAmountTo.value = value;
+        } else {
+            filterTransactionAmountFrom.value = value;
+        }
     })
 ;
+
+filterTransactionAmountFrom.addEventListener('change', function () {
+    filterTransactionPriceRangeInput.noUiSlider.set([this.value, null]);
+});
+
+filterTransactionAmountTo.addEventListener('change', function () {
+    filterTransactionPriceRangeInput.noUiSlider.set([null, this.value]);
+});

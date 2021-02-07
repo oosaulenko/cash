@@ -59,9 +59,9 @@ class DataService {
             if(!empty($request->get('filter_transaction')['timeTo'])) $filter['timeTo'] = $request->get('filter_transaction')['timeTo'];
             if(!empty($request->get('filter_transaction')['dateFrom'])) $filter['dateFrom'] = $request->get('filter_transaction')['dateFrom'];
             if(!empty($request->get('filter_transaction')['dateTo'])) $filter['dateTo'] = $request->get('filter_transaction')['dateTo'];
+            if(!empty($request->get('filter_transaction')['amountFrom'])) $filter['amountFrom'] = $request->get('filter_transaction')['amountFrom'];
+            if(!empty($request->get('filter_transaction')['amountTo'])) $filter['amountTo'] = $request->get('filter_transaction')['amountTo'];
         }
-
-        dump($filter);
 
         return $filter;
     }

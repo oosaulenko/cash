@@ -116,9 +116,9 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
         $this->setFilterParams($query);
 
-        return $query
+        return round($query
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getSingleScalarResult(), 2)
             ;
     }
 
@@ -132,9 +132,9 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
         $this->setFilterParams($query);
 
-        return $query
+        return round($query
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getSingleScalarResult(), 2)
             ;
     }
 
@@ -158,6 +158,9 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
         if(!empty($this->paramsTransaction['timeFrom'])) $query->andWhere('t.time >= (:timeFrom)')->setParameter('timeFrom', Carbon::parse($this->paramsTransaction['timeFrom'], 'Europe/Kiev')->startOfDay()->getTimestamp());
         if(!empty($this->paramsTransaction['timeTo'])) $query->andWhere('t.time <= (:timeTo)')->setParameter('timeTo', Carbon::parse($this->paramsTransaction['timeTo'], 'Europe/Kiev')->endOfDay()->getTimestamp());
+
+        if(!empty($this->paramsTransaction['amountFrom'])) $query->andWhere('t.amount >= (:amountFrom)')->setParameter('amountFrom', $this->paramsTransaction['amountFrom']);
+        if(!empty($this->paramsTransaction['amountTo'])) $query->andWhere('t.amount <= (:amountTo)')->setParameter('amountTo', $this->paramsTransaction['amountTo']);
 
 
     }

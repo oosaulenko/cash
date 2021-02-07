@@ -49,6 +49,8 @@ class TransactionController extends BaseController {
         $filterParams = $this->dataService->getFilterTransactionParams($request);
         $cards = $this->cardRepository->getCardsID($this->getUser());
 
+        dump($filterParams);
+
         $forRender['transactions'] = $this->transactionRepository->setParams($filterParams)->getTransactions($cards);
         $forRender['sumIncome'] = $this->transactionRepository->setParams($filterParams)->getIncome($cards);
         $forRender['sumExpense'] = $this->transactionRepository->setParams($filterParams)->getExpense($cards);

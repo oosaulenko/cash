@@ -36,7 +36,7 @@ class FilterTransactionType extends AbstractType
                 'label' => false,
                 'required' => false,
                 'attr' => [
-                    'class' => 'field-select form-select'
+                    'class' => 'field-select form-select dark'
                 ],
                 'choices' => [
                     'По убыванию даты' => 'DESC',
@@ -68,7 +68,8 @@ class FilterTransactionType extends AbstractType
                 'label' => 'От',
                 'label_attr' => [
                     'class' => 'form-label text-secondary',
-                ]
+                ],
+                'required' => false
             ])
             ->add('timeFrom', HiddenType::class, [])
             ->add('dateTo', TextType::class, [
@@ -79,16 +80,19 @@ class FilterTransactionType extends AbstractType
                 'label' => 'До',
                 'label_attr' => [
                     'class' => 'form-label text-secondary',
-                ]
+                ],
+                'required' => false
             ])
             ->add('timeTo', HiddenType::class, [])
             ->add('amountFrom', TextType::class, [
                 'attr' => ['class' => 'dark'],
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
             ->add('amountTo', TextType::class, [
                 'attr' => ['class' => 'dark'],
-                'label' => false
+                'label' => false,
+                'required' => false
             ])
         ;
     }
