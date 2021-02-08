@@ -11,4 +11,11 @@ interface CategoryRepositoryInterface {
      */
     public function isDefault(): object;
 
+    /**
+     * @param $ids
+     */
+    public function getCategories(array $ids);
+
+//    public function getCategories()
+
 }

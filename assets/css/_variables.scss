@@ -13,7 +13,7 @@ $gray-400: #ced4da;
 $gray-500: #adb5bd;
 $gray-600: #98A9BC;
 $gray-700: #778CA2;
-$gray-800: #343a40;
+$gray-800: #4F4F5F;
 $gray-900: #252631;
 $black:    #000;
 
@@ -61,7 +61,7 @@ $colors: (
 // scss-docs-end colors-map
 
 $primary:       $blue;
-$secondary:     $gray-600;
+$secondary:     $gray-800;
 $success:       $green;
 $info:          $cyan;
 $warning:       $yellow;
@@ -573,7 +573,7 @@ $input-padding-x-lg:                    1rem;
 //
 //$form-check-input-width:                  1em;
 //$form-check-min-height:                   $font-size-base * $line-height-base;
-//$form-check-padding-start:                $form-check-input-width + .5em;
+$form-check-padding-start:                0;
 //$form-check-margin-bottom:                .125rem;
 //$form-check-label-color:                  null;
 //$form-check-label-cursor:                 null;

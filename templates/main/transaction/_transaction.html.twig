@@ -19,10 +19,10 @@
                 </div>
 
                 <div class="col-sm-3">
-                    <div class="transaction__category fs-6 d-flex align-items-center">
+                    <a href="{{ path('transactions') }}?filter_transaction%5Bcategory%5D%5B%5D={{ transaction.category.id }}" class="transaction__category fs-6 d-flex align-items-center text-reset">
                         <span class="icon-color me-2" style="background-color: {{ transaction.category.color }}40"><b style="background-color: {{ transaction.category.color }}"></b></span>
                         <span>{{ transaction.category.name }}</span>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-sm-2">

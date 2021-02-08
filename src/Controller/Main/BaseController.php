@@ -12,7 +12,8 @@ class BaseController extends AbstractController {
     {
 
         return [
-            'title' => 'LooCash'
+            'title' => 'LooCash',
+            'body_class' => ''
         ];
     }
 }

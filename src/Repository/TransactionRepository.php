@@ -33,10 +33,8 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
      */
     private $categoryMccRepository;
 
-//    /**
-//     * @var CardRepositoryInterface
-//     */
-//    private $cardRepository;
+
+    private $paramsTransaction;
 
 
     public function __construct(ManagerRegistry $registry,
@@ -94,40 +92,76 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
         return $category;
     }
 
-    public function getTransactions($cards, ?array $params)
+    public function getTransactions($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->where('t.card IN (:cards)')
-            ->setParameter('cards', $cards)
-            ->orderBy('t.time', $params['sort'])
+            ->setParameter('cards', $cards);
+
+        $this->setFilterParams($query);
+
+        return $query
             ->getQuery()
             ->execute()
             ;
     }
 
-    public function getIncome($cards, ?array $params)
+    public function getIncome($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
             ->where('t.card IN (:cards)')
-            ->andWhere('t.amount > 0')
-            ->setParameter('cards', $cards)
-            ->groupBy('t.card')
+            ->andWhere('t.amount >= 0')
+            ->setParameter('cards', $cards);
+
+        $this->setFilterParams($query);
+
+        return round($query
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getSingleScalarResult(), 2)
             ;
     }
 
-    public function getExpense($cards, ?array $params)
+    public function getExpense($cards)
     {
-        return $this->createQueryBuilder('t')
+        $query = $this->createQueryBuilder('t')
             ->select('SUM(t.amount)')
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount < 0')
-            ->setParameter('cards', $cards)
-            ->groupBy('t.card')
+            ->setParameter('cards', $cards);
+
+        $this->setFilterParams($query);
+
+        return round($query
             ->getQuery()
-            ->getSingleScalarResult()
+            ->getSingleScalarResult(), 2)
             ;
+    }
+
+    public function setParams($params)
+    {
+        $this->paramsTransaction = $params;
+
+        return $this;
+    }
+
+    public function setFilterParams($query)
+    {
+        if(!empty($this->paramsTransaction['sort'])) $query->orderBy('t.time', $this->paramsTransaction['sort']);
+
+        if(empty($this->paramsTransaction['typeIncome']) || empty($this->paramsTransaction['typeExpense'])){
+            if(!empty($this->paramsTransaction['typeIncome'])) $query->andWhere('t.amount >= 0');
+            if(!empty($this->paramsTransaction['typeExpense'])) $query->andWhere('t.amount < 0');
+        }
+
+        if(!empty($this->paramsTransaction['category'])) $query->andWhere('t.category IN (:category)')->setParameter('category', $this->paramsTransaction['category']);
+
+        if(!empty($this->paramsTransaction['timeFrom'])) $query->andWhere('t.time >= (:timeFrom)')->setParameter('timeFrom', Carbon::parse($this->paramsTransaction['timeFrom'], 'Europe/Kiev')->startOfDay()->getTimestamp());
+        if(!empty($this->paramsTransaction['timeTo'])) $query->andWhere('t.time <= (:timeTo)')->setParameter('timeTo', Carbon::parse($this->paramsTransaction['timeTo'], 'Europe/Kiev')->endOfDay()->getTimestamp());
+
+        if(!empty($this->paramsTransaction['amountFrom'])) $query->andWhere('t.amount >= (:amountFrom)')->setParameter('amountFrom', $this->paramsTransaction['amountFrom']);
+        if(!empty($this->paramsTransaction['amountTo'])) $query->andWhere('t.amount <= (:amountTo)')->setParameter('amountTo', $this->paramsTransaction['amountTo']);
+
+
     }
 }

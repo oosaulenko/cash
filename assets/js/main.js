@@ -13,7 +13,15 @@ const axios = require('axios');
         }
     });
 
-    $()
+    $('#sideFilterButton').on('click', function () {
+        if ($(this).hasClass('active')) {
+            $('.filter, body').removeClass('active--filter');
+            $(this).removeClass('active');
+        } else {
+            $('.filter, body').addClass('active--filter');
+            $(this).addClass('active');
+        }
+    });
 
 })(jQuery);
 

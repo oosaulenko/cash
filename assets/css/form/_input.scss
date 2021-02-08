@@ -1,0 +1,9 @@
+.form-control {
+
+
+  &.dark {
+    background-color: $dark;
+    border-color: $secondary;
+    color: $light;
+  }
+}
