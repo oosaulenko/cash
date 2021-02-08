@@ -55,6 +55,14 @@ class TransactionController extends BaseController {
         $forRender['sumIncome'] = $this->transactionRepository->setParams($filterParams)->getIncome($cards);
         $forRender['sumExpense'] = $this->transactionRepository->setParams($filterParams)->getExpense($cards);
 
+        if(!isset($request->get('filter_transaction')['amountFrom'])) {
+            $filterParams['amountFrom'] = $forRender['sumExpense'];
+        }
+
+        if(!isset($request->get('filter_transaction')['amountTo'])) {
+            $filterParams['amountTo'] = $forRender['sumIncome'];
+        }
+
         $filterForm = $this->createForm(FilterTransactionType::class, $filterParams);
         $forRender['filterForm'] = $filterForm->createView();
 

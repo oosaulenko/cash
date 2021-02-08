@@ -25,6 +25,7 @@
     "lightpick": "^1.6.2",
     "litepicker": "^2.0.1",
     "moment": "^2.29.1",
-    "nouislider": "^14.6.3"
+    "nouislider": "^14.6.3",
+    "smooth-scrollbar": "^8.6.0"
   }
 }

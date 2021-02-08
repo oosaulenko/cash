@@ -1,4 +1,9 @@
 import noUiSlider from 'nouislider';
+import Scrollbar from 'smooth-scrollbar';
+
+Scrollbar.init(document.querySelector('#filterTransaction'), {
+    'continuousScrolling': false
+});
 
 new Litepicker({
     element: document.getElementById('filter_transaction_dateFrom'),
@@ -35,8 +40,8 @@ noUiSlider.create(filterTransactionPriceRangeInput, {
     start: [filterTransactionAmountFrom.value, filterTransactionAmountTo.value],
     connect: true,
     range: {
-        'min': -10000,
-        'max': 10000
+        'min': -100000,
+        'max': 100000
     }
 })
     .on('update', function (values, handle) {
