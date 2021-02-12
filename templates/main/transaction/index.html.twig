@@ -21,6 +21,10 @@
             {% endif %}
         </div>
 
+        <div class="mb-5">
+            {{ render_chart(chart) }}
+        </div>
+
         {{ include('main/transaction/_transaction.html.twig', {'transactions' : transactions}) }}
     {% else %}
         <div class="empty empty_cards text-center pt-5">

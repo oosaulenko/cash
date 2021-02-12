@@ -8,16 +8,12 @@
 // any CSS you import will output into a single css file (app.css in this case)
 import './css/app.scss';
 
-var $ = require('jquery');
+// start the Stimulus application
+import './bootstrap';
+
 import 'bootstrap';
-import './js/axios.min.js';
 
-import Litepicker from 'litepicker';
-
-
-const axios = require('axios').default;
 
 
 import './js/main';
 import './js/filter';
-
