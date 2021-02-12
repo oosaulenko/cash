@@ -138,6 +138,50 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ;
     }
 
+    public function getIncomeChart($cards)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->select('SUM(t.amount) as sum, DAY(FROM_UNIXTIME(t.time)) as day, MONTH(FROM_UNIXTIME(t.time)) as month, YEAR(FROM_UNIXTIME(t.time)) as year')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount > 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('day')
+            ->addGroupBy('month')
+            ->addGroupBy('year')
+            ->orderBy('year', 'ASC')
+            ->addOrderBy('month', 'ASC')
+            ->addOrderBy('day', 'ASC')
+        ;
+
+        $this->setFilterParams($query);
+
+        return $query
+            ->getQuery()
+            ->execute();
+    }
+
+    public function getExpenseChart($cards)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->select('SUM(t.amount) as sum, DAY(FROM_UNIXTIME(t.time)) as day, MONTH(FROM_UNIXTIME(t.time)) as month, YEAR(FROM_UNIXTIME(t.time)) as year')
+            ->where('t.card IN (:cards)')
+            ->andWhere('t.amount <= 0')
+            ->setParameter('cards', $cards)
+            ->groupBy('day')
+            ->addGroupBy('month')
+            ->addGroupBy('year')
+            ->orderBy('year', 'ASC')
+            ->addOrderBy('month', 'ASC')
+            ->addOrderBy('day', 'ASC')
+        ;
+
+        $this->setFilterParams($query);
+
+        return $query
+            ->getQuery()
+            ->execute();
+    }
+
     public function setParams($params)
     {
         $this->paramsTransaction = $params;

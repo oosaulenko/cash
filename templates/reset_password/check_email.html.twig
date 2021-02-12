@@ -3,6 +3,6 @@
 {% block title %}Password Reset Email Sent{% endblock %}
 
 {% block body %}
-    <p>An email has been sent that contains a link that you can click to reset your password. This link will expire in {{ tokenLifetime|date('g') }} hour(s).</p>
-    <p>If you don't receive an email please check your spam folder or <a href="{{ path('app_forgot_password_request') }}">try again</a>.</p>
+    <p>Было отправлено электронное письмо со ссылкой, по которой вы можете щелкнуть, чтобы сбросить пароль. Эта ссылка истечет через {{ tokenLifetime|date('g') }} час(а).</p>
+    <p>Если вы не получили письмо, проверьте папку со спамом или <a href="{{ path('app_forgot_password_request') }}">попробуйте еще раз</a>.</p>
 {% endblock %}

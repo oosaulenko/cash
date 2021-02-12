@@ -38,6 +38,18 @@ interface TransactionRepositoryInterface {
      * @param $cards
      * @return mixed
      */
+    public function getIncomeChart($cards);
+
+    /**
+     * @param $cards
+     * @return mixed
+     */
+    public function getExpenseChart($cards);
+
+    /**
+     * @param $cards
+     * @return mixed
+     */
     public function getExpense($cards);
 
     /**

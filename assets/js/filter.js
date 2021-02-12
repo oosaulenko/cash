@@ -1,5 +1,6 @@
 import noUiSlider from 'nouislider';
 import Scrollbar from 'smooth-scrollbar';
+import Litepicker from 'litepicker'
 
 Scrollbar.init(document.querySelector('#filterTransaction'), {
     'continuousScrolling': false
