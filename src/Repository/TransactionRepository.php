@@ -152,20 +152,22 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ;
     }
 
-    public function getIncomeChart($cards)
+    public function getIncomeChart($cards, $view)
     {
         $query = $this->createQueryBuilder('t')
-            ->select('SUM(t.amount) as sum, DAY(FROM_UNIXTIME(t.time)) as day, MONTH(FROM_UNIXTIME(t.time)) as month, YEAR(FROM_UNIXTIME(t.time)) as year')
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount > 0')
             ->setParameter('cards', $cards)
-            ->groupBy('day')
-            ->addGroupBy('month')
-            ->addGroupBy('year')
-            ->orderBy('year', 'ASC')
-            ->addOrderBy('month', 'ASC')
-            ->addOrderBy('day', 'ASC')
         ;
+
+        if($view == 'week') {
+            $query->select('SUM(t.amount) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time)) as week')
+                ->groupBy('week')
+                ->addGroupBy('year')
+                ->orderBy('year', 'ASC')
+                ->addOrderBy('week', 'ASC')
+            ;
+        }
 
         $this->setFilterParams($query);
 
@@ -174,20 +176,22 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ->execute();
     }
 
-    public function getExpenseChart($cards)
+    public function getExpenseChart($cards, $view)
     {
         $query = $this->createQueryBuilder('t')
-            ->select('SUM(t.amount) as sum, DAY(FROM_UNIXTIME(t.time)) as day, MONTH(FROM_UNIXTIME(t.time)) as month, YEAR(FROM_UNIXTIME(t.time)) as year')
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount <= 0')
             ->setParameter('cards', $cards)
-            ->groupBy('day')
-            ->addGroupBy('month')
-            ->addGroupBy('year')
-            ->orderBy('year', 'ASC')
-            ->addOrderBy('month', 'ASC')
-            ->addOrderBy('day', 'ASC')
         ;
+
+        if($view == 'week') {
+            $query->select('SUM(t.amount) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time)) as week')
+                ->groupBy('week')
+                ->addGroupBy('year')
+                ->orderBy('year', 'ASC')
+                ->addOrderBy('week', 'ASC')
+            ;
+        }
 
         $this->setFilterParams($query);
 
@@ -219,7 +223,5 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
 
         if(!empty($this->paramsTransaction['amountFrom'])) $query->andWhere('t.amount >= (:amountFrom)')->setParameter('amountFrom', $this->paramsTransaction['amountFrom']);
         if(!empty($this->paramsTransaction['amountTo'])) $query->andWhere('t.amount <= (:amountTo)')->setParameter('amountTo', $this->paramsTransaction['amountTo']);
-
-
     }
 }

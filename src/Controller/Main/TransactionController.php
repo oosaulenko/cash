@@ -7,6 +7,7 @@ namespace App\Controller\Main;
 use App\Form\FilterTransactionType;
 use App\Repository\CardRepositoryInterface;
 use App\Repository\TransactionRepositoryInterface;
+use App\Service\ChartServiceInterface;
 use App\Service\Data\DataService;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,12 +31,17 @@ class TransactionController extends BaseController {
      * @var DataService
      */
     private $dataService;
+    /**
+     * @var ChartServiceInterface
+     */
+    private $chartService;
 
-    public function __construct(TransactionRepositoryInterface $transactionRepository, CardRepositoryInterface $cardRepository, DataService $dataService)
+    public function __construct(TransactionRepositoryInterface $transactionRepository, CardRepositoryInterface $cardRepository, DataService $dataService, ChartServiceInterface $chartService)
     {
         $this->transactionRepository = $transactionRepository;
         $this->cardRepository = $cardRepository;
         $this->dataService = $dataService;
+        $this->chartService = $chartService;
     }
 
     /**
@@ -53,9 +59,12 @@ class TransactionController extends BaseController {
         $filterParams = $this->dataService->getFilterTransactionParams($request);
         $cards = $this->cardRepository->getCardsID($this->getUser());
 
-        $forRender['transactions'] = $this->transactionRepository->setParams($filterParams)->getTransactions($cards);
-        $forRender['sumIncome'] = $this->transactionRepository->setParams($filterParams)->getIncome($cards);
-        $forRender['sumExpense'] = $this->transactionRepository->setParams($filterParams)->getExpense($cards);
+        $this->transactionRepository->setParams($filterParams);
+
+        $forRender['transactions'] = $this->transactionRepository->getTransactions($cards);
+        $forRender['sumIncome'] = $this->transactionRepository->getIncome($cards);
+        $forRender['sumExpense'] = $this->transactionRepository->getExpense($cards);
+
 
         if(!isset($request->get('filter_transaction')['amountFrom'])) {
             $filterParams['amountFrom'] = $forRender['sumExpense'];
@@ -65,64 +74,24 @@ class TransactionController extends BaseController {
             $filterParams['amountTo'] = $forRender['sumIncome'];
         }
 
-        $getIncome = $this->transactionRepository->getIncomeChart($cards);
-
-
-        $getExpense = $this->transactionRepository->getExpenseChart($cards);
-
-        $getFirstDateIncome = strtotime($getIncome[0]['year'].'-'.$getIncome[0]['month'].'-'.$getIncome[0]['day']);
-        $getFirstDateExpense = strtotime($getExpense[0]['year'].'-'.$getExpense[0]['month'].'-'.$getExpense[0]['day']);
-
-        $getLastDateIncome = end($getIncome);
-        $getLastDateIncome = strtotime($getLastDateIncome['year'].'-'.$getLastDateIncome['month'].'-'.$getLastDateIncome['day']);
-
-        $getLastDateExpense = end($getExpense);
-        $getLastDateExpense = strtotime($getLastDateExpense['year'].'-'.$getLastDateExpense['month'].'-'.$getLastDateExpense['day']);
-
-        $firstDate = ($getFirstDateIncome > $getFirstDateExpense) ? $getFirstDateExpense : $getFirstDateIncome;
-        $lastDate = ($getLastDateIncome > $getLastDateExpense) ? $getLastDateIncome : $getLastDateExpense;
-
-        $firstDateD = Carbon::createFromTimestamp($firstDate);
-        $lastDateD = Carbon::createFromTimestamp($lastDate);
-        $countDays = $firstDateD->diffInDays($lastDateD);
-
-        for($i = 1; $i <= $countDays; $i++) {
-            $date = $firstDateD->addDay();
-
-            $labels[] = $date->format('j.n.Y');
-            $dataIncome[$date->format('j.n.Y')] = 0;
-            $dataExpense[$date->format('j.n.Y')] = 0;
-        }
-
-        foreach($getIncome as $value) {
-            $date = $value['day'].'.'.$value['month'].'.'.$value['year'];
-            $dataIncome[$date] = $value['sum'];
-        }
-
-        foreach($getExpense as $value) {
-            $date = $value['day'].'.'.$value['month'].'.'.$value['year'];
-            $dataExpense[$date] = abs($value['sum']);
-        }
-
-        $labels = array_values($labels);
-        $dataIncome = array_values($dataIncome);
-        $dataExpense = array_values($dataExpense);
+        $this->chartService->setIncome($this->transactionRepository->getIncomeChart($cards, 'week'));
+        $this->chartService->setExpense($this->transactionRepository->getExpenseChart($cards, 'week'));
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
-            'labels' => $labels,
+            'labels' => $this->chartService->getDataLabels(),
             'datasets' => [
                 [
                     'label' => 'Доходы',
                     'backgroundColor' => 'rgba(255, 99, 132, 0)',
                     'borderColor' => '#84DEAD',
-                    'data' => $dataIncome,
+                    'data' => $this->chartService->getDataIncome(),
                 ],
                 [
                     'label' => 'Расходы',
                     'backgroundColor' => 'rgba(255, 99, 132, 0)',
                     'borderColor' => '#7ABFF8',
-                    'data' => $dataExpense,
+                    'data' => $this->chartService->getdataExpense(),
                 ],
             ],
         ]);

@@ -22,6 +22,14 @@
         </div>
 
         <div class="mb-5">
+            <select class="form-select" id="range" aria-label="Отображение">
+                <option disabled>Отображение</option>
+                <option value="30">Годам</option>
+                <option value="14">Месяцам</option>
+                <option value="7" selected>Неделям</option>
+                <option value="1">Дням</option>
+            </select>
+
             {{ render_chart(chart) }}
         </div>
 

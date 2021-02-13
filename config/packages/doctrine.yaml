@@ -19,6 +19,7 @@ doctrine:
         dql:
             datetime_functions:
                 DAY: DoctrineExtensions\Query\Mysql\Day
+                WEEK: DoctrineExtensions\Query\Mysql\Week
                 MONTH: DoctrineExtensions\Query\Mysql\Month
                 YEAR: DoctrineExtensions\Query\Mysql\Year
                 FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime

@@ -42,15 +42,17 @@ interface TransactionRepositoryInterface {
 
     /**
      * @param $cards
+     * @param $view
      * @return mixed
      */
-    public function getIncomeChart($cards);
+    public function getIncomeChart($cards, $view);
 
     /**
      * @param $cards
+     * @param $view
      * @return mixed
      */
-    public function getExpenseChart($cards);
+    public function getExpenseChart($cards, $view);
 
     /**
      * @param $cards
