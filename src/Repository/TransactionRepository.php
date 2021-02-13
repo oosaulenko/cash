@@ -106,6 +106,20 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ;
     }
 
+    public function getLastTransactions($card)
+    {
+        $query = $this->createQueryBuilder('t')
+            ->where('t.card IN (:cards)')
+            ->setParameter('cards', $card)
+            ->orderBy('t.time', 'DESC')
+            ->setMaxResults(10)
+        ;
+
+        return $query
+            ->getQuery()
+            ;
+    }
+
     public function getIncome($cards)
     {
         $query = $this->createQueryBuilder('t')

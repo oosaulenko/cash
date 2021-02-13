@@ -2,9 +2,11 @@ import noUiSlider from 'nouislider';
 import Scrollbar from 'smooth-scrollbar';
 import Litepicker from 'litepicker'
 
-Scrollbar.init(document.querySelector('#filterTransaction'), {
-    'continuousScrolling': false
-});
+if (document.querySelector('#filterTransaction')) {
+    Scrollbar.init(document.querySelector('#filterTransaction'), {
+        'continuousScrolling': false
+    });
+}
 
 new Litepicker({
     element: document.getElementById('filter_transaction_dateFrom'),

@@ -89,8 +89,6 @@ class TransactionController extends BaseController {
         for($i = 1; $i <= $countDays; $i++) {
             $date = $firstDateD->addDay();
 
-//            $date = $date->format('j.n.Y');
-
             $labels[] = $date->format('j.n.Y');
             $dataIncome[$date->format('j.n.Y')] = 0;
             $dataExpense[$date->format('j.n.Y')] = 0;

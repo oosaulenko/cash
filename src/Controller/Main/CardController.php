@@ -12,6 +12,7 @@ use App\Form\CardType;
 use App\Form\CategoryMccType;
 use App\Form\CategoryType;
 use App\Repository\CardRepositoryInterface;
+use App\Repository\TransactionRepositoryInterface;
 use App\Repository\UserMonobankTokenRepositoryInterface;
 use Carbon\Carbon;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -31,9 +32,18 @@ class CardController extends BaseController {
      */
     private $userMonobankTokenRepository;
 
-    public function __construct(CardRepositoryInterface $cardRepository, UserMonobankTokenRepositoryInterface $userMonobankTokenRepository) {
+    /**
+     * @var TransactionRepositoryInterface
+     */
+    private $transactionRepository;
+
+    public function __construct(CardRepositoryInterface $cardRepository,
+                                UserMonobankTokenRepositoryInterface $userMonobankTokenRepository,
+                                TransactionRepositoryInterface $transactionRepository
+    ) {
         $this->cardRepository = $cardRepository;
         $this->userMonobankTokenRepository = $userMonobankTokenRepository;
+        $this->transactionRepository = $transactionRepository;
     }
 
     /**
@@ -50,6 +60,39 @@ class CardController extends BaseController {
         $forRender['cards'] = $this->cardRepository->getCards($this->getUser());
 
         return $this->render('main/card/index.html.twig', $forRender);
+    }
+
+    /**
+     * @param int $cardId
+     * @param Request $request
+     * @return Response
+     * @Route("/card/{cardId}", name="card")
+     */
+    public function element(int $cardId, Request $request): Response {
+        $forRender = parent::renderDefault();
+
+        $card = $this->cardRepository->getOne($cardId);
+        $forRender['card'] = $card;
+        $forRender['transactions'] = $this->transactionRepository->getLastTransactions($card)->execute();
+
+        $filterParams = [
+            'timeFrom' => Carbon::now()->subWeek()->startOfDay()->getTimestamp(),
+            'timeTo'   => Carbon::now()->getTimestamp(),
+        ];
+
+        $forRender['sumIncome'] = $this->transactionRepository->setParams($filterParams)->getIncome($card);
+        $forRender['sumExpense'] = $this->transactionRepository->setParams($filterParams)->getExpense($card);
+
+        $forRender['title'] = $card->getName();
+        $forRender['balance'] = $card->getBalanceView();
+
+        $forRender['options'] = [
+            'bank_card' => false,
+            'date'      => false,
+            'category'  => false
+        ];
+
+        return $this->render('main/card/element.html.twig', $forRender);
     }
 
 

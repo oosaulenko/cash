@@ -1,4 +1,5 @@
 .bank_card {
+  transition: $transition-base;
 
   &.disabled {
     opacity: .6;
@@ -18,6 +19,20 @@
       height: 100%;
       object-fit: contain;
     }
+  }
+
+  &__actions {
+    a {
+      &:hover {
+        i {
+          color: $primary;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    transform: scale(1.01);
   }
 
 }

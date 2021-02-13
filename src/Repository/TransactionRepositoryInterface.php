@@ -29,6 +29,12 @@ interface TransactionRepositoryInterface {
     public function getTransactions($cards);
 
     /**
+     * @param $card
+     * @return mixed
+     */
+    public function getLastTransactions($card);
+
+    /**
      * @param $cards
      * @return mixed
      */

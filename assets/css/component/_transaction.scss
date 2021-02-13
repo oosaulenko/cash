@@ -4,6 +4,7 @@
 
     .icon-color {
       width: 24px;
+      min-width: 24px;
       height: 24px;
       background-color: rgba($dark, .05);
       position: relative;
@@ -21,6 +22,10 @@
       }
     }
 
+  }
+
+  &__amount {
+    white-space: nowrap;
   }
 
 }

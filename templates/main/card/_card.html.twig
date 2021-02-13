@@ -1,26 +1,28 @@
 {% for card in cards %}
     <div class="bank_card bg-white mb-4 ps-3 pe-3 rounded shadow-sm {% if card.status == 0 %}disabled{% endif %}">
         <div class="bank_card__inner d-flex align-items-center">
-            <div class="bank_card__type me-4 pt-3 pb-3 pe-3 border-end">
-                <span class="bank_card__icon d-flex align-items-center justify-content-center">{{ include('main/card/field/_type.html.twig', {'type' : card.type}) }}</span>
-            </div>
-            <div class="bank_card__name_box col-sm-4 me-4">
-                <div class="bank_card__bank text-muted fs-6">{{ card.bank }}</div>
-                <div class="bank_card__name">{{ card.name }}</div>
-            </div>
-
-            <div class="bank_card__updated pt-3 pb-3 me-auto">
-                <div class="text-muted fs-6">Обновление</div>
-                <div>{{ card.TimeUpdateView }}</div>
-            </div>
-
-            <div class="bank_card__balance_box text-end pt-3 pb-3 me-4">
-                <div class="bank_card__balance_name text-muted fs-6">Баланс</div>
-                <div class="bank_card__balance">
-                    <span class="value">{{ include('main/card/field/_currency.html.twig', {'currency' : card.currency}) }}</span>
-                    <span class="name">{{ card.BalanceView }}</span>
+            <a href="{{ path('card', {'cardId': card.id}) }}" class="d-flex align-items-center w-100 text-reset">
+                <div class="bank_card__type me-4 pt-3 pb-3 pe-3 border-end">
+                    <span class="bank_card__icon d-flex align-items-center justify-content-center">{{ include('main/card/field/_type.html.twig', {'type' : card.type}) }}</span>
                 </div>
-            </div>
+                <div class="bank_card__name_box col-sm-4 me-4">
+                    <div class="bank_card__bank text-muted fs-6">{{ card.bank }}</div>
+                    <span class="bank_card__name text-reset">{{ card.name }}</span>
+                </div>
+
+                <div class="bank_card__updated pt-3 pb-3 me-auto">
+                    <div class="text-muted fs-6">Обновление</div>
+                    <div>{{ card.TimeUpdateView }}</div>
+                </div>
+
+                <div class="bank_card__balance_box text-end pt-3 pb-3 me-4">
+                    <div class="bank_card__balance_name text-muted fs-6">Баланс</div>
+                    <div class="bank_card__balance">
+                        <span class="value">{{ include('main/card/field/_currency.html.twig', {'currency' : card.currency}) }}</span>
+                        <span class="name">{{ card.BalanceView }}</span>
+                    </div>
+                </div>
+            </a>
 
             <div class="bank_card__actions ms-4 text-muted d-flex align-items-center justify-content-center pt-3 pb-3">
                 <a href="{{ path('card_transactions_update', {'cardId': card.id}) }}" class="text-reset me-3"><i class="fal fa-sync-alt"></i></a>

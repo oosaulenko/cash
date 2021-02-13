@@ -13,23 +13,29 @@
                                     {{ transaction.description }}
                                 {% endif %}
                             </div>
-                            <div class="transaction__bank_card text-muted fs-6">{{ transaction.card.name }}</div>
+                            {% if options.bank_card is not defined %}
+                                <div class="transaction__bank_card text-muted fs-6">{{ transaction.card.name }}</div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
 
+                {% if options.category is not defined %}
                 <div class="col-sm-3">
                     <a href="{{ path('transactions') }}?filter_transaction%5Bcategory%5D%5B%5D={{ transaction.category.id }}" class="transaction__category fs-6 d-flex align-items-center text-reset">
                         <span class="icon-color me-2" style="background-color: {{ transaction.category.color }}40"><b style="background-color: {{ transaction.category.color }}"></b></span>
                         <span>{{ transaction.category.name }}</span>
                     </a>
                 </div>
+                {% endif %}
 
-                <div class="col-sm-2">
-                    <div class="transaction__date text-muted fs-6">{{ transaction.timeView }}</div>
-                </div>
+                {% if options.date is not defined  %}
+                    <div class="col-sm-2">
+                        <div class="transaction__date text-muted fs-6">{{ transaction.timeView }}</div>
+                    </div>
+                {% endif %}
 
-                <div class="col-sm-2">
+                <div class="ms-auto col-sm-2">
                     <div class="transaction__balance_box text-end">
                         <div class="transaction__amount d-flex align-items-center justify-content-end">
                             <span class="me-2">{{ include('main/transaction/field/_inex.html.twig', {'value' : transaction.isIncome}) }}</span>

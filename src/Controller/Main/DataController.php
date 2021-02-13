@@ -3,6 +3,7 @@
 
 namespace App\Controller\Main;
 
+use App\Repository\TransactionRepositoryInterface;
 use App\Service\Data\DataService;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -11,23 +12,27 @@ use Symfony\Component\Routing\Annotation\Route;
 class DataController extends BaseController {
 
     /**
-     * @var DataService
+     * @var TransactionRepositoryInterface
      */
-    private $dataService;
+    private $transactionRepository;
 
-    public function __construct(DataService $dataService)
+    public function __construct(TransactionRepositoryInterface $transactionRepository)
     {
-        $this->dataService = $dataService;
+        $this->transactionRepository = $transactionRepository;
     }
 
     /**
-     * @Route("/data/transaction", name="data_transaction", methods={"GET", "POST"})
+     * @Route("/data/transactions", name="data_card_transactions", methods={"GET", "POST"})
      * @param Request $request
      * @return JsonResponse
      */
-    public function getFilterTransactionAction(Request $request): JsonResponse
+    public function getTransactionsByCard(Request $request): JsonResponse
     {
-        $response = $this->dataService->getFilterTransaction($request, $this->getUser());
+        $card_id = (int) $request->get('card_id');
+
+        $response['transactions'] = $this->transactionRepository->getLastTransactions([$card_id])->getArrayResult();
+
         return $this->json($response);
     }
+
 }

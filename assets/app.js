@@ -13,7 +13,7 @@ import './bootstrap';
 
 import 'bootstrap';
 
-
-
 import './js/main';
-import './js/filter';
+// import './js/filter';
+
+import './js/card';
