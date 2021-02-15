@@ -158,14 +158,28 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount > 0')
             ->setParameter('cards', $cards)
+            ->orderBy('year', 'ASC')
         ;
 
         if($view == 'week') {
-            $query->select('SUM(t.amount) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time)) as week')
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time), 1) as week, MIN(t.time) as time')
                 ->groupBy('week')
                 ->addGroupBy('year')
-                ->orderBy('year', 'ASC')
                 ->addOrderBy('week', 'ASC')
+            ;
+        }
+
+        if($view == 'month') {
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, MONTH(FROM_UNIXTIME(t.time)) as month, MIN(t.time) as time')
+                ->groupBy('month')
+                ->addGroupBy('year')
+                ->addOrderBy('month', 'ASC')
+            ;
+        }
+
+        if($view == 'year') {
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, MIN(t.time) as time')
+                ->groupBy('year')
             ;
         }
 
@@ -182,14 +196,28 @@ class TransactionRepository extends ServiceEntityRepository implements Transacti
             ->where('t.card IN (:cards)')
             ->andWhere('t.amount <= 0')
             ->setParameter('cards', $cards)
+            ->orderBy('year', 'ASC')
         ;
 
         if($view == 'week') {
-            $query->select('SUM(t.amount) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time)) as week')
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, WEEK(FROM_UNIXTIME(t.time), 1) as week, MIN(t.time) as time')
                 ->groupBy('week')
                 ->addGroupBy('year')
-                ->orderBy('year', 'ASC')
                 ->addOrderBy('week', 'ASC')
+            ;
+        }
+
+        if($view == 'month') {
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, MONTH(FROM_UNIXTIME(t.time)) as month, MIN(t.time) as time')
+                ->groupBy('month')
+                ->addGroupBy('year')
+                ->addOrderBy('month', 'ASC')
+            ;
+        }
+
+        if($view == 'year') {
+            $query->select('ROUND(SUM(t.amount), 0) as sum, YEAR(FROM_UNIXTIME(t.time)) as year, MIN(t.time) as time')
+                ->groupBy('year')
             ;
         }
 

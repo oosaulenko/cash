@@ -61,6 +61,7 @@ class ChartService implements ChartServiceInterface {
     {
         $this->expense = $expense;
 
+        $this->setFormatDate();
         $this->setStartDate();
         $this->setEndDate();
         $this->setDiff();
@@ -72,11 +73,28 @@ class ChartService implements ChartServiceInterface {
         $this->view = $view;
     }
 
+    public function setFormatDate()
+    {
+        if($this->view == 'week') {
+            $this->format = 'W.Y';
+        }
+
+        if($this->view == 'day') {
+            $this->format = 'j.n.Y';
+        }
+
+        if($this->view == 'month') {
+            $this->format = 'n.Y';
+        }
+
+        if($this->view == 'year') {
+            $this->format = 'Y';
+        }
+    }
+
     public function setStartDate()
     {
-        $startDateIncome = strtotime($this->income[0]['year'] . '-' . $this->income[0]['month'] . '-' . $this->income[0]['day']);
-        $startDateExpense = strtotime($this->expense[0]['year'] . '-' . $this->expense[0]['month'] . '-' . $this->expense[0]['day']);
-        $startDate = ($startDateIncome > $startDateExpense) ? $startDateExpense : $startDateIncome;
+        $startDate = ($this->income[0]['time'] > $this->expense[0]['time']) ? $this->expense[0]['time'] : $this->income[0]['time'];
         $this->startDate = Carbon::createFromTimestamp($startDate);
     }
 
@@ -87,13 +105,7 @@ class ChartService implements ChartServiceInterface {
 
     public function setEndDate()
     {
-        $endDateIncome = end($this->income);
-        $endDateIncome = strtotime($this->setFormat($endDateIncome));
-
-        $endDateExpense = end($this->expense);
-        $endDateExpense = strtotime($endDateExpense['year'] . '-' . $endDateExpense['month'] . '-' . $endDateExpense['day']);
-
-        $endDate = ($endDateIncome > $endDateExpense) ? $endDateIncome : $endDateExpense;
+        $endDate = (end($this->income)['time'] > end($this->expense)['time']) ? end($this->income)['time'] : end($this->expense)['time'];
         $this->endDate = Carbon::createFromTimestamp($endDate);
     }
 
@@ -106,13 +118,22 @@ class ChartService implements ChartServiceInterface {
     {
         if($this->view == 'week') {
             $this->diff = $this->startDate->diffInWeeks($this->endDate);
-            $this->format = 'W.Y';
         }
 
         if($this->view == 'day') {
             $this->diff = $this->startDate->diffInDays($this->endDate);
-            $this->format = 'j.n.Y';
         }
+
+        if($this->view == 'month') {
+            $this->diff = $this->startDate->diffInMonths($this->endDate);
+        }
+
+        if($this->view == 'year') {
+            $this->diff = $this->startDate->diffInYears($this->endDate);
+        }
+
+        // TODO Rework diff
+        $this->diff = $this->diff + 2;
     }
 
     public function getDiff()
@@ -130,6 +151,14 @@ class ChartService implements ChartServiceInterface {
             return $array['day'].'.'.$array['month'].'.'.$array['year'];
         }
 
+        if($this->view == 'month') {
+            return $array['month'].'.'.$array['year'];
+        }
+
+        if($this->view == 'year') {
+            return $array['year'];
+        }
+
         return false;
     }
 
@@ -142,16 +171,26 @@ class ChartService implements ChartServiceInterface {
         if($this->view == 'day') {
             $this->startDate->addDay();
         }
+
+        if($this->view == 'month') {
+            $this->startDate->addMonth();
+        }
+
+        if($this->view == 'year') {
+            $this->startDate->addYear();
+        }
+
+
     }
 
     public function setData()
     {
         for($i = 1; $i <= $this->diff; $i++) {
-            $this->setNextStep();
-
             $this->dataLabels[] = $this->startDate->format($this->format);
             $this->dataIncome[$this->startDate->format($this->format)] = 0;
             $this->dataExpense[$this->startDate->format($this->format)] = 0;
+
+            $this->setNextStep();
         }
 
         foreach($this->income as $value) {

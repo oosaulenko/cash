@@ -28,6 +28,11 @@ interface ChartServiceInterface {
     /**
      * @return mixed
      */
+    public function setFormatDate();
+
+    /**
+     * @return mixed
+     */
     public function setStartDate();
 
     /**

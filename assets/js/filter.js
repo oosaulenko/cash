@@ -21,7 +21,7 @@ new Litepicker({
         "many": "дней"
     },
     minDate: '2015-01-01',
-    maxDate: '2019-08-30',
+    maxDate: '2021-02-28',
 })
     .on('selected', (date, date2) => {
         if (date) {

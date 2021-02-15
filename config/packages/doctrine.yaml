@@ -23,3 +23,5 @@ doctrine:
                 MONTH: DoctrineExtensions\Query\Mysql\Month
                 YEAR: DoctrineExtensions\Query\Mysql\Year
                 FROM_UNIXTIME: DoctrineExtensions\Query\Mysql\FromUnixtime
+                DATE_DIFF: DoctrineExtensions\Query\Mysql\DateDiff
+                ROUND: DoctrineExtensions\Query\Mysql\Round

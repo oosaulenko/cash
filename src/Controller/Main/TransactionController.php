@@ -74,8 +74,9 @@ class TransactionController extends BaseController {
             $filterParams['amountTo'] = $forRender['sumIncome'];
         }
 
-        $this->chartService->setIncome($this->transactionRepository->getIncomeChart($cards, 'week'));
-        $this->chartService->setExpense($this->transactionRepository->getExpenseChart($cards, 'week'));
+        $this->chartService->setView('year');
+        $this->chartService->setIncome($this->transactionRepository->getIncomeChart($cards, 'year'));
+        $this->chartService->setExpense($this->transactionRepository->getExpenseChart($cards, 'year'));
 
         $chart = $chartBuilder->createChart(Chart::TYPE_LINE);
         $chart->setData([
@@ -83,13 +84,13 @@ class TransactionController extends BaseController {
             'datasets' => [
                 [
                     'label' => 'Доходы',
-                    'backgroundColor' => 'rgba(255, 99, 132, 0)',
+                    'backgroundColor' => 'RGBA(132,222,173,0.2)',
                     'borderColor' => '#84DEAD',
                     'data' => $this->chartService->getDataIncome(),
                 ],
                 [
                     'label' => 'Расходы',
-                    'backgroundColor' => 'rgba(255, 99, 132, 0)',
+                    'backgroundColor' => 'RGBA(122,191,248,0.2)',
                     'borderColor' => '#7ABFF8',
                     'data' => $this->chartService->getdataExpense(),
                 ],
@@ -103,10 +104,18 @@ class TransactionController extends BaseController {
                'backgroundColor' => '#252631',
                'borderWidth' => 0
            ],
-           'hover' => [
-               'mode' => 'index',
-               'intersect' => 'false'
-           ]
+//           'scales' => [
+//             'xAxes' => [
+//                 ['stacked' => 'true']
+//             ],
+//             'yAxes' => [
+//                 ['stacked' => 'true']
+//             ],
+//           ],
+//           'hover' => [
+//               'mode' => 'index',
+//               'intersect' => 'false'
+//           ]
         ]);
 
         $filterForm = $this->createForm(FilterTransactionType::class, $filterParams);
